@@ -134,5 +134,6 @@ export const resetPassword = async (data) => {
     body: JSON.stringify(data)
   });
   const result = await res.json();
+  console.log(result)
   return { ok: res.ok, data: result.message };
 };

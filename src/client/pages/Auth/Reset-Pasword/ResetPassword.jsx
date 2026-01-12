@@ -1,19 +1,21 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import './ResetPassword.scss'
 import { useState } from "react"
 import {resetPassword} from '../../../../services/AuthService/Auth.service';
 import Swal from 'sweetalert2';
 function ResetPassword(){
+    const navigate = useNavigate();
     const [form, setFrom] = useState({
         password: "",
         repassword: ""
     });
-    const handleSubmit = async (e) => {
+    const handleSubmitResetPassword = async (e) => {
+        e.preventDefault()
         try {
             const res = await resetPassword(form);
 
             if(res.ok){
-                window.location.href = ("/")
+                // navigate("/")
             } else{
                 const Toast = Swal.mixin({
                     toast: true,
@@ -32,11 +34,10 @@ function ResetPassword(){
                 });
             }
         } catch (error) {
-            
+            console.error(error)
         }
     }
-    const handleChange = async (e) => {
-        e.preventDefault();
+    const handleChangePassword = async (e) => {
         setFrom({
             ...form,
             [e.target.name]: e.target.value
@@ -47,15 +48,15 @@ function ResetPassword(){
         <div className="resetPassword">
             <div className="resetPassword_container">
                 <div className='resetPassword_container-left'>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmitResetPassword}>
                         <div className='resetPassword_container-left-top'>
                             <img src='/logo/florenx.png' title='logo'/>
                             <h2 >Đổi mật khẩu</h2>
                         </div>
 
                         <div className='resetPassword_container-left-bot'>
-                            <input type="text" name='password'placeholder="Nhập mật khẩu" onChange={handleChange}/>
-                            <input type="text" name='repassword' placeholder="Xác nhận mật khẩu" onChange={handleChange}/>
+                            <input type="password" name='password'placeholder="Nhập mật khẩu" onChange={handleChangePassword}/>
+                            <input type="password" name='repassword' placeholder="Xác nhận mật khẩu" onChange={handleChangePassword}/>
                             <button type="submit">Click để đổi mật khẩu</button>
                             <Link to={"/forgot-password"}>Quay lại</Link>
                         </div>

@@ -1,12 +1,12 @@
-import { useNavigate, useSearchParams, Link } from "react-router-dom";
+import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import './ForgotPasswordOtp.scss'
 import { useState } from "react";
 import { forgotPasswordOtp } from "../../../../services/AuthService/Auth.service";
 import Swal from "sweetalert2";
 function forgotOtpPasswordOtp() {
+    const nagivate = useNavigate();
     const [searchParams] = useSearchParams();
     const email = searchParams.get("email")
-    const navigate = useNavigate();
     const [form, setForm] = useState({
         email: email,
         otp: ""
@@ -18,8 +18,7 @@ function forgotOtpPasswordOtp() {
             const res = await forgotPasswordOtp(form);
 
             if(res.ok){
-
-                navigate("/forgot-password/reset-password");
+                window.location.href = ("/reset-password");
             } else {
                 const Toast = Swal.mixin({
                     toast: true,

@@ -1,8 +1,9 @@
 import './ForgotPassword.scss';
 import {forgotPassword} from "../../../../services/AuthService/Auth.service";
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {  Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import { AuthContext } from '../../../../context/AuthContext';
 function ForgotPassword(){
     const navigate = useNavigate();
     const [form, setForm] = useState({

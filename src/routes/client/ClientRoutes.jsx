@@ -25,6 +25,9 @@ function ClientRoutes() {
           <Route path="/my-account" element={<MyAccount />} />
           <Route path="/reset-password" element={<ResetPassword />} />
         </Route>
+
+          
+
         
         
       </Route>

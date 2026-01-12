@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { getMyAccount, update } from "../../../../services/AuthService/Auth.service";
 import './MyAccount.scss';
 import { UserOutlined, SafetyCertificateOutlined } from '@ant-design/icons';
+import Swal from 'sweetalert2'
 function MyAccount() {
     const [data, setData] = useState({});
     const [render, setRender] = useState(true);
 
     useEffect(() => {
         getMyAccount()
-            .then(res => res.json())
-            .then(data => setData(data.info))
+            .then(data => setData(data.data.info))
             .catch(err => console.error(err));
     }, []);
 
@@ -17,12 +17,27 @@ function MyAccount() {
         const { name, value } = e.target;
         setData(prev => ({ ...prev, [name]: value }));
     };
+
     const handleSubmit = async (e) => { 
         e.preventDefault();
         try {
             const res = await update(data);
             if(res.ok){
-                window.location.href = "/my-account"
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                    });
+                    Toast.fire({
+                    icon: "success",
+                    title: res.data.message
+                });
             }
         } catch (error) {
             console.error(error)
@@ -102,7 +117,6 @@ function MyAccount() {
         setRender(!render)
     }
 
-  console.log(data);
 
   return (
     <>
