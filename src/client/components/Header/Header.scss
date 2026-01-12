@@ -1,0 +1,56 @@
+.header{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 4px 25px;
+    background: #0D0D0D;
+    color: white;
+    justify-content: space-around;
+    font-size: 18px;
+    font-weight: 600;
+
+    &_logo{
+        max-width: 80px;
+        img{
+            max-width: 80px;
+            width: 100%;
+        }
+    }
+
+    &_page{
+        flex: 1;
+        display: flex;
+        gap: 15px;
+        width: 100%;
+        justify-content: center;
+        a{
+            font-size: 17px;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+    }
+
+    &_function{
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        svg{
+            font-size: 22px;
+        }
+
+        &-login{
+            text-decoration: none;
+            color: white;
+            background:rgba(255, 255, 255, 0.3);
+            padding: 8px;
+        }
+    }
+
+
+
+   
+} 
+@media (max-width: 800px) {
+
+}

@@ -1,0 +1,42 @@
+.banner {
+  width: 100%;
+  overflow: hidden;
+
+  &-slide {
+    width: 100%;
+    height: 540px; 
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; 
+      display: block;
+      }
+}
+
+}
+
+.banner .slick-dots {
+  bottom: 20px;
+}
+
+.banner .slick-dots li button {
+  width: 10px;
+  height: 10px;
+}
+
+.banner .slick-dots li button::before {
+  font-size: 10px;
+  color: #fff;
+  opacity: 0.6;
+}
+
+.banner .slick-dots li.slick-active button::before {
+  color: #00e5ff;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .banner-slide {
+    height: 260px;
+  }
+}

@@ -1,0 +1,29 @@
+.paren_user{
+    position: relative;
+    &-user{
+        cursor: pointer;
+    }
+    &-none{
+        display: none;
+    }
+    &-block{
+        position: absolute;
+        z-index: 1000;
+        width: 120px;
+        top: 40px;
+        right: 0px;
+        display: flex;
+        flex-wrap: wrap;
+        background: white;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        font-weight: 0;
+        font-size: 15px;
+        border-radius: 8px;
+        a{
+            text-decoration: none;
+            color: black;
+        }
+    }
+}
