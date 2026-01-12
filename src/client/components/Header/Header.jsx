@@ -48,9 +48,9 @@ function Header(){
                     <div>
                         <EnvironmentOutlined/>
                     </div>
-                    <div>
+                    <Link to={"/cart"}>
                         <ShoppingCartOutlined />
-                    </div>
+                    </Link>
                     <ModalUser/>
                 </div>
             </div>

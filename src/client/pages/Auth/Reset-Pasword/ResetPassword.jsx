@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import './ResetPassword.scss'
 import { useState } from "react"
-import {resetPassword} from '../../../../services/AuthService/Auth.service';
+import {resetPassword} from "../../../../services/Client/AuthService/Auth.service";
 import Swal from 'sweetalert2';
 function ResetPassword(){
     const navigate = useNavigate();

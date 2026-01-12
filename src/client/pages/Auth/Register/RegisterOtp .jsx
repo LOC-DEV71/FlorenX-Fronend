@@ -1,7 +1,7 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import "./RegisterOtp.scss";
-import { verifyRegisterOtp } from "../../../../services/AuthService/Auth.service";
+import { verifyRegisterOtp } from "../../../../services/Client/AuthService/Auth.service";
 
 function RegisterOtp() {
     const [searchParams] = useSearchParams();

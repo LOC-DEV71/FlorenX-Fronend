@@ -9,6 +9,7 @@ import ForgotPassword from "../../client/pages/Auth/ForfotPassword/ForgotPasswor
 import ForgotPasswordOtp from "../../client/pages/Auth/ForfotPassword/ForgotPasswordOtp";
 import PrivateRoutes from "./PrivateRoutes";
 import ResetPassword from "../../client/pages/Auth/Reset-Pasword/ResetPassword";
+import ListCart from "../../client/pages/Cart/cartUser/ListCart";
 
 function ClientRoutes() {
   return (
@@ -21,6 +22,9 @@ function ClientRoutes() {
         <Route path="/forgot-password/otp" element={<ForgotPasswordOtp />} />
         <Route path="/login" element={<Login />} />
 
+
+        <Route path="/cart" element={<ListCart />} />
+
         <Route element={<PrivateRoutes/>}>
           <Route path="/my-account" element={<MyAccount />} />
           <Route path="/reset-password" element={<ResetPassword />} />
@@ -28,8 +32,6 @@ function ClientRoutes() {
 
           
 
-        
-        
       </Route>
     </Routes>
   );

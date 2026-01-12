@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import './Login.scss'
 import { useState } from 'react'
-import {login} from '../../../../services/AuthService/Auth.service';
+import {login} from "../../../../services/Client/AuthService/Auth.service";
 import Swal from 'sweetalert2'
 
 

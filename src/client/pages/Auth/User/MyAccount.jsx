@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getMyAccount, update } from "../../../../services/AuthService/Auth.service";
+import { getMyAccount, update } from "../../../../services/Client/AuthService/Auth.service";
 import './MyAccount.scss';
 import { UserOutlined, SafetyCertificateOutlined } from '@ant-design/icons';
 import Swal from 'sweetalert2'
@@ -40,6 +40,21 @@ function MyAccount() {
                 });
             }
         } catch (error) {
+            const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                    });
+                    Toast.fire({
+                    icon: "success",
+                    title: res.data.message
+                });
             console.error(error)
         }
     };
@@ -106,7 +121,18 @@ function MyAccount() {
             )
 
             case false:
-            return <div>Email & Password</div>;
+            return (
+                <div className="profile_right-info">
+                    <h2>Thay đổi Email hoặc password</h2>
+                        <form onSubmit={handleSubmit}>
+                            <div className="form-group">
+                                <span >Thay đổi email</span>
+                                <span >Thay đổi password</span>
+                            </div>
+                    </form>
+
+                </div>
+            )
 
             default:
             return null;

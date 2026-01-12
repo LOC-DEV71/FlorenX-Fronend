@@ -60,6 +60,21 @@
 
     form{
         max-width: 1000px;
+        button{
+          max-width: 170px;
+          text-align: center;
+          cursor: pointer;
+          background: black;
+          color: white;
+          box-shadow: 0 0 0 3px rgb(179, 179, 179);
+          margin-bottom: 10px;
+          border-radius: 8px;
+          padding: 5px;
+
+          &:hover{
+            background: rgb(118, 118, 118);
+          }
+        }
         input{
             max-width: 400px;
             margin-right: 10px;
@@ -92,4 +107,21 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+
+  span{
+    max-width: 170px;
+    text-align: center;
+    cursor: pointer;
+    background: black;
+    color: white;
+    box-shadow: 0 0 0 3px rgb(179, 179, 179);
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: none;
+
+    &:hover{
+      background: rgb(118, 118, 118);
+    }
+  }
 }
+

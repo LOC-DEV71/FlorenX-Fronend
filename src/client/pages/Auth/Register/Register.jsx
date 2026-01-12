@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import './Register.scss'
 import { useState } from 'react'
-import { sendRegisterOtp } from '../../../../services/AuthService/Auth.service';
+import { sendRegisterOtp } from "../../../../services/Client/AuthService/Auth.service";
 import Swal from 'sweetalert2'
 
 function Register(){
@@ -24,7 +24,7 @@ function Register(){
         e.preventDefault(); 
 
         try {
-            const res = await sendRegisterOtp({ email: form.email });
+            const res = await sendRegisterOtp(form);
             if(res.ok){
                 sessionStorage.setItem("registerInfo", JSON.stringify(form));
                 const Toast = Swal.mixin({

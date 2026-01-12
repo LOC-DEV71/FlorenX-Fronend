@@ -1,9 +1,14 @@
+import { Route, Routes } from "react-router-dom";
+import AdminRoutes from "./admin/AdminRoutes";
 import ClientRoutes from "./client/ClientRoutes";
 
 function AppRoutes() {
   return (
     <>
-      <ClientRoutes />
+      <Routes>
+        <Route path="/*" element={<ClientRoutes />} />
+        <Route path="/admin/*" element={<AdminRoutes />} />
+      </Routes>
     </>
   );
 }

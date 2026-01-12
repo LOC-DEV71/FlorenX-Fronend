@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../../../context/AuthContext'; 
+import { AuthContext } from '../../../context/client/AuthContext'; 
 import { useContext } from 'react';
 import {
     UserOutlined,
 } from '@ant-design/icons'
 import './user.scss'
 import { useState } from 'react';
-import { logout } from '../../../services/AuthService/Auth.service';
+import { logout } from "../../../services/Client/AuthService/Auth.service";
 function ModalUser(){
     const [dislay, setDislay] = useState(false);
     const { isAuth } = useContext(AuthContext);

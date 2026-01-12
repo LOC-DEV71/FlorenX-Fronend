@@ -1,10 +1,9 @@
 import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import './ForgotPasswordOtp.scss'
 import { useState } from "react";
-import { forgotPasswordOtp } from "../../../../services/AuthService/Auth.service";
+import { forgotPasswordOtp } from "../../../../services/Client/AuthService/Auth.service";
 import Swal from "sweetalert2";
 function forgotOtpPasswordOtp() {
-    const nagivate = useNavigate();
     const [searchParams] = useSearchParams();
     const email = searchParams.get("email")
     const [form, setForm] = useState({
