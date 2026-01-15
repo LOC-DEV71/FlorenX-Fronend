@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getMyAccount, update } from "../../../../services/Client/AuthService/Auth.service";
 import './MyAccount.scss';
 import { UserOutlined, SafetyCertificateOutlined } from '@ant-design/icons';
-import Swal from 'sweetalert2'
+import {toastSuccess, toastError} from '../../../../utils/AlertFromSweetalert2';
 function MyAccount() {
     const [data, setData] = useState({});
     const [render, setRender] = useState(true);
@@ -23,38 +23,11 @@ function MyAccount() {
         try {
             const res = await update(data);
             if(res.ok){
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    }
-                    });
-                    Toast.fire({
-                    icon: "success",
-                    title: res.data.message
-                });
+                toastSuccess(res.data.message)
+            } else {
+                toastError(res.data.message)
             }
         } catch (error) {
-            const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    }
-                    });
-                    Toast.fire({
-                    icon: "success",
-                    title: res.data.message
-                });
             console.error(error)
         }
     };

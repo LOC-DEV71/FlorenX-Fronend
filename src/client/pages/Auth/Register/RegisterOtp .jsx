@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./RegisterOtp.scss";
 import { verifyRegisterOtp } from "../../../../services/Client/AuthService/Auth.service";
 
+
 function RegisterOtp() {
     const [searchParams] = useSearchParams();
     const email = searchParams.get("email");

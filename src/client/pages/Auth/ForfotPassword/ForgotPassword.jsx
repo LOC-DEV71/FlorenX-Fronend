@@ -2,7 +2,8 @@ import './ForgotPassword.scss';
 import {forgotPassword} from "../../../../services/Client/AuthService/Auth.service";
 import { useState } from 'react';
 import {  Link, useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'
+import {toastError} from '../../../../utils/AlertFromSweetalert2';
+
 function ForgotPassword(){
     const navigate = useNavigate();
     const [form, setForm] = useState({
@@ -16,21 +17,7 @@ function ForgotPassword(){
             if(res.ok){
                 navigate(`/forgot-password/otp?email=${form.email}`);
             } else {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    }
-                    });
-                    Toast.fire({
-                    icon: "error",
-                    title: res.data
-                });
+                toastError(res.data)
             }
         } catch (error) {
             console.error(error);

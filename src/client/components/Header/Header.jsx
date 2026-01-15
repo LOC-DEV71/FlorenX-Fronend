@@ -12,7 +12,7 @@ function Header(){
         <>
             <div className="header">
                 <Link to={"/"} className="header_logo">
-                    <img className="header_logo-img" src="/logo/florenx.png"/>
+                    <img className="header_logo-img" src="/logo/florenx-dark.webp"/>
                 </Link>
                 <div className="header_page">
                     <Link>

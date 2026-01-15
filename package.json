@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tinymce/tinymce-react": "^6.3.0",
     "antd": "^6.1.4",
     "axios": "^1.13.2",
     "react": "^19.2.0",

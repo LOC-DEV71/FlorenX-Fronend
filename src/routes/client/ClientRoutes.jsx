@@ -10,9 +10,11 @@ import ForgotPasswordOtp from "../../client/pages/Auth/ForfotPassword/ForgotPass
 import PrivateRoutes from "./PrivateRoutes";
 import ResetPassword from "../../client/pages/Auth/Reset-Pasword/ResetPassword";
 import ListCart from "../../client/pages/Cart/cartUser/ListCart";
+import { AuthProvider } from "../../context/client/AuthContext";
 
 function ClientRoutes() {
   return (
+    <AuthProvider>
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<IndexHome />} />
@@ -34,6 +36,7 @@ function ClientRoutes() {
 
       </Route>
     </Routes>
+  </AuthProvider>
   );
 }
 

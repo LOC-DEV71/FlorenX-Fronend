@@ -2,7 +2,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import './Register.scss'
 import { useState } from 'react'
 import { sendRegisterOtp } from "../../../../services/Client/AuthService/Auth.service";
-import Swal from 'sweetalert2'
+import {toastError, toastSuccess} from '../../../../utils/AlertFromSweetalert2';
+
 
 function Register(){
     const navigate = useNavigate();
@@ -27,38 +28,10 @@ function Register(){
             const res = await sendRegisterOtp(form);
             if(res.ok){
                 sessionStorage.setItem("registerInfo", JSON.stringify(form));
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    }
-                    });
-                    Toast.fire({
-                    icon: "success",
-                    title: res.data
-                });
+                toastSuccess(res.data)
                 navigate(`/register/otp?email=${form.email}`);
             } else{
-                const Toast = Swal.mixin({
-                        toast: true,
-                        position: "top-end",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.onmouseenter = Swal.stopTimer;
-                            toast.onmouseleave = Swal.resumeTimer;
-                        }
-                        });
-                        Toast.fire({
-                        icon: "error",
-                        title: res.data
-                    });
+                toastError(res.data)
                 }
         } catch (error) {
            

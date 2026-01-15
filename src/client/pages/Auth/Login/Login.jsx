@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import './Login.scss'
 import { useState } from 'react'
 import {login} from "../../../../services/Client/AuthService/Auth.service";
-import Swal from 'sweetalert2'
+import {toastError, toastSuccess} from '../../../../utils/AlertFromSweetalert2';
 
 
 function Login(){
@@ -23,40 +23,12 @@ function Login(){
         try {
             const res = await login(form)
             if(res.ok){
-                 const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    }
-                    });
-                    Toast.fire({
-                    icon: "success",
-                    title: "Đăng nhập thành công"
-                });
+                toastSuccess(res.data)
                 setTimeout(()=>{
                     window.location.href = "/"
                 }, 1500)
             } else {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    }
-                    });
-                    Toast.fire({
-                    icon: "error",
-                    title: res.data
-                });
+                toastError(res.data)
             }
         } catch (error) {
             console.error(error);

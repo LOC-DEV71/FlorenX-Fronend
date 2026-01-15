@@ -2,7 +2,7 @@ import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import './ForgotPasswordOtp.scss'
 import { useState } from "react";
 import { forgotPasswordOtp } from "../../../../services/Client/AuthService/Auth.service";
-import Swal from "sweetalert2";
+import {toastError} from '../../../../utils/AlertFromSweetalert2';
 function forgotOtpPasswordOtp() {
     const [searchParams] = useSearchParams();
     const email = searchParams.get("email")
@@ -19,21 +19,7 @@ function forgotOtpPasswordOtp() {
             if(res.ok){
                 window.location.href = ("/reset-password");
             } else {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    }
-                    });
-                    Toast.fire({
-                    icon: "error",
-                    title: res.data
-                });
+                toastError(res.data)
             }
         } catch (error) {
             

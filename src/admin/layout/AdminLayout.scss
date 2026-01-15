@@ -1,0 +1,42 @@
+html, body {
+  margin: 0;
+  background: var(--bg-modal);
+}
+
+.admin_layout {
+  min-height: 100vh;
+  color: var(--text);
+}
+
+.sidebar-admin {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 150px;
+  height: 100vh;
+  background: var(--bg);
+  z-index: 1000;
+}
+
+.admin_layout-content {
+  margin-left: 150px;
+}
+
+.header-admin {
+  position: fixed;
+  top: 0;
+  left: 150px;
+  right: 0;
+  height: 60px;
+  background: var(--bg);
+  z-index: 900;
+  border-bottom: 1px solid #eee;
+}
+
+.admin_layout-content main {
+  margin-top: 60px;
+  height: calc(100vh - 60px);
+  // overflow-y: auto;
+  padding: 20px;
+  background: var(--bg-modal);
+}

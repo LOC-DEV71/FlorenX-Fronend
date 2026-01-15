@@ -4,18 +4,21 @@
   padding: 30px;
   max-height: 80vh;
   gap: 0;
+  background: var(--bg);
 
   &_left {
     max-width: 320px;
     width: 100%;
     border: 1px solid rgba(73, 73, 73, 0.2);
-    padding: 20px;
+    padding: 20px;  
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
-    background: #fff;
+    background: var(--bg-modal);
+    color: var(--text);
 
     .bold{
         font-weight: 700;
+        background: var(--bg);
     }
 
     h2 {
@@ -29,16 +32,16 @@
       border-radius: 6px;
       cursor: pointer;
       font-size: 15px;
-      color: #333;
+      color: var(--text);
       transition: all 0.25s ease;
 
       &:hover {
-        background: #f5f7fa;
+        background: var(--bg);
       }
 
       &.active {
-        background: #111;
-        color: #fff;
+        background: var(--bg-modal);
+        color: var(--text);
         font-weight: 500;
       }
     }
@@ -46,11 +49,11 @@
 
   &_right {
     flex: 1;
-    border: 1px solid rgba(73, 73, 73, 0.2);
+    border: 3px solid var(--bg-modal);
     padding: 20px;
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
-    background: #fff;
+    background: var(--bg-modal);
     overflow-y: auto;
 
     img{
@@ -64,15 +67,15 @@
           max-width: 170px;
           text-align: center;
           cursor: pointer;
-          background: black;
-          color: white;
-          box-shadow: 0 0 0 3px rgb(179, 179, 179);
+          background: var(--btn);
+          color: var(--text);
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;          
           margin-bottom: 10px;
           border-radius: 8px;
           padding: 5px;
 
           &:hover{
-            background: rgb(118, 118, 118);
+            background: var(--btn-hover);
           }
         }
         input{
@@ -85,7 +88,7 @@
             border-radius: 10px;
             box-sizing: border-box;
 
-            border: 1px solid #ccc;
+            border: 1px solid var(--bg);
             outline: none;
             
             &:focus{

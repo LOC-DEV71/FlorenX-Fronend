@@ -1,10 +1,10 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import './ResetPassword.scss'
 import { useState } from "react"
 import {resetPassword} from "../../../../services/Client/AuthService/Auth.service";
-import Swal from 'sweetalert2';
+import {toastSuccess, toastError} from '../../../../utils/AlertFromSweetalert2';
+
 function ResetPassword(){
-    const navigate = useNavigate();
     const [form, setFrom] = useState({
         password: "",
         repassword: ""
@@ -15,23 +15,9 @@ function ResetPassword(){
             const res = await resetPassword(form);
 
             if(res.ok){
-                // navigate("/")
+                toastSuccess(res.data)
             } else{
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    }
-                    });
-                    Toast.fire({
-                    icon: "error",
-                    title: res.data
-                });
+                toastError(res.data)
             }
         } catch (error) {
             console.error(error)

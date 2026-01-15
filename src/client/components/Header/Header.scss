@@ -3,11 +3,15 @@
     align-items: center;
     gap: 20px;
     padding: 4px 25px;
-    background: #0D0D0D;
-    color: white;
-    justify-content: space-around;
+    background: var(--bg);
+    color: var(--text);
+    justify-content: space-around;  
     font-size: 18px;
     font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 
     &_logo{
         max-width: 80px;
@@ -26,7 +30,7 @@
         a{
             font-size: 17px;
             font-weight: 600;
-            color: white;
+            color: var(--text);
             text-decoration: none;
         }
     }
@@ -40,13 +44,13 @@
         }
 
         a{
-            color: white;
+            color: var(--text);
         }
 
         &-login{
             text-decoration: none;
-            color: white;
-            background:rgba(255, 255, 255, 0.3);
+            color: var(--btn-text);
+            background: var(--bg-modal);
             padding: 8px;
         }
     }

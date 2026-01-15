@@ -1,7 +1,10 @@
+import './ListCart.scss'
 function ListCart(){
     return(
         <>
-            Cart
+            <div className="cart">
+                cart
+            </div>
         </>
     )
 }

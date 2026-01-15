@@ -1,0 +1,41 @@
+.sidebar-admin{
+    display: flex;
+    flex-direction: column;  
+    align-items: center;
+    background: var(--bg);
+    color: var(--text);
+
+    &_logo{
+        max-width: 100px;
+        margin-top: 30px;
+        img{
+            width: 100%;
+        }
+    }
+
+    &_menu{
+        margin-top: 40px;
+        &-item{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 5px;
+            padding: 10px 2px 10px 5px;
+            a{
+                color: var(--text);
+                text-decoration: none;
+                font-size: 18px;
+                
+            }
+
+            svg{
+                font-size: 20px;
+            }
+        }
+
+        .active{
+            background: var(--bg-modal);
+        }
+    }
+}
