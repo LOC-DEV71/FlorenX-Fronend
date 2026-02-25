@@ -18,12 +18,27 @@
         align-items: center;
         justify-content: center;
         padding: 5px;
-        font-weight: 0;
         font-size: 15px;
         border-radius: 8px;
         a{
             text-decoration: none;
             color: black;
+            margin-bottom: 5px;
+            padding: 3px;
+            cursor: pointer;
+            &:hover{
+                background: rgb(202, 201, 201);
+            }
+        }
+        span{
+            text-decoration: none;
+            color: red;
+            margin-bottom: 5px;
+            padding: 3px; 
+            cursor: pointer;
+            &:hover{
+                background: rgb(202, 201, 201);
+            }
         }
     }
 }

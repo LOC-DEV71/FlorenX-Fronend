@@ -2,19 +2,23 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { getProducts, changeMulti } from "../../../services/Admin/Products.service";
 import "./AdminProducts.scss";
-import {toastSuccess, toastError} from '../../../utils/AlertFromSweetalert2';
+import { toastSuccess, toastError } from '../../../utils/AlertFromSweetalert2';
 import { SwapOutlined, SearchOutlined } from '@ant-design/icons';
-const MAX_PAGE = 5;
+import { Skeleton } from "antd";
+import { renderpagination } from "../../../utils/Admin/paginaton";
+
 
 function AdminProducts() {
     const [products, setProducts] = useState([]);
     const [pagination, setPagination] = useState(null);
-    const [selectedIds, setSelectedIds] = useState([]); 
+    const [selectedIds, setSelectedIds] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
     const [bulkAction, setBulkAction] = useState("");
     const [reload, setReload] = useState(false);
     const [sort, setSort] = useState("");
     const [search, setSearch] = useState("");
+    const [loading, setLoading] = useState(false);
+
 
 
     const page = Number(searchParams.get("page")) || 1;
@@ -22,15 +26,19 @@ function AdminProducts() {
 
     // products
     useEffect(() => {
+        setLoading(true);
         getProducts({ page, limit, sort, search })
             .then(res => {
                 if (res.ok) {
                     setProducts(res.data.products);
                     setPagination(res.data.pagination);
-                    setSelectedIds([]); 
+                    setSelectedIds([]);
                 }
             })
-            .catch(console.error);
+            .catch(console.error)
+            .finally(() => {
+                setLoading(false);
+            });
     }, [page, limit, reload, sort, search]);
 
     //search
@@ -40,11 +48,11 @@ function AdminProducts() {
     }
 
     //clear
-    const handleClear = (e) =>{
+    const handleClear = (e) => {
         e.preventDefault();
-         setSearch("");
-    setSort("");
-    setSearchParams({ page: 1, limit });
+        setSearch("");
+        setSort("");
+        setSearchParams({ page: 1, limit });
 
     }
 
@@ -52,14 +60,14 @@ function AdminProducts() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await changeMulti({selectedIds, bulkAction});
+            const res = await changeMulti({ selectedIds, bulkAction });
             setReload(prev => !prev)
-            if(res.ok){
+            if (res.ok) {
                 toastSuccess(res.data.message)
-            } else{
+            } else {
                 toastError(res.data.message)
             }
-        
+
         } catch (error) {
             console.error(error)
         }
@@ -67,55 +75,56 @@ function AdminProducts() {
 
 
 
-    const renderPages = () => {
-        if (!pagination) return null;
+    const renderSkeletonRows = (rows = 5) => {
+        return Array.from({ length: rows }).map((_, index) => (
+            <tr key={index}>
+                <td>
+                    <Skeleton.Input size="small" style={{ width: 16 }} />
+                </td>
 
-        const { currentPage, totalPage } = pagination;
+                <td className="product">
+                    <Skeleton.Avatar shape="square" size={40} />
+                    <Skeleton.Input
+                        active
+                        size="small"
+                        style={{ width: 180, marginLeft: 10 }}
+                    />
+                </td>
 
-        let startPage = Math.max(
-            1,
-            currentPage - Math.floor(MAX_PAGE / 2)
-        );
+                <td>
+                    <Skeleton.Input active size="small" style={{ width: 100 }} />
+                </td>
 
-        let endPage = startPage + MAX_PAGE - 1;
+                <td>
+                    <Skeleton.Input active size="small" style={{ width: 80 }} />
+                </td>
 
-        if (endPage > totalPage) {
-            endPage = totalPage;
-            startPage = Math.max(1, endPage - MAX_PAGE + 1);
-        }
+                <td>
+                    <Skeleton.Input active size="small" style={{ width: 60 }} />
+                </td>
 
-        const pages = [];
-        for (let i = startPage; i <= endPage; i++) {
-            pages.push(
-                <button
-                    key={i}
-                    disabled={i === currentPage}
-                    onClick={() =>
-                        setSearchParams({ page: i, limit })
-                    }
-                >
-                    {i}
-                </button>
-            );
-        }
-
-        return pages;
+                <td>
+                    <Skeleton.Button active size="small" />
+                </td>
+            </tr>
+        ));
     };
 
-    return (
-        <>  
-            <div style={{ marginBottom: 12 }} className="create">
-                    <Link to="/admin/products/create">Tạo Mới</Link>
-            </div>
-            <div className="header-admin-products">
-                 {/* Create */}
-                
 
-                <h2 className="header-admin-products_left">Danh sách sản phẩm</h2>
+    return (
+        <>
+            <div className="header-admin-products">
+                {/* Create */}
+
+
+                <div className="header-admin-products_left create">
+                    <Link to="/admin/products/create">Tạo Mới</Link>
+                </div>
+
                 <div style={{ marginBottom: 12 }} className="header-admin-products_right">
 
                     <div className="header-admin-products_right-search">
-                        <input placeholder="Tìm kiếm sản phẩm" name="search" onChange={e => setSearch(e.target.value)}/>
+                        <input placeholder="Tìm kiếm sản phẩm" name="search" onChange={e => setSearch(e.target.value)} />
                         <button onClick={handleSearch}><SearchOutlined /></button>
                     </div>
 
@@ -142,7 +151,6 @@ function AdminProducts() {
 
                     {/* Sort */}
                     <div className="header-admin-products_right-sort">
-                        <SwapOutlined/>
                         <select
                             value={sort}
                             onChange={(e) => setSort(e.target.value)}
@@ -152,10 +160,12 @@ function AdminProducts() {
                             <option value="title-desc">Sắp xếp theo tên Z-A</option>
                             <option value="price-asc">Sắp xếp theo giá thấp đến cao</option>
                             <option value="price-desc">Sắp xếp theo giá cao đến thấp</option>
+                            <option value="featured-yes">Sản phẩm nổi bậc</option>
+                            <option value="featured-no">Sản phẩm không nổi bậc</option>
                         </select>
 
                     </div>
-                    
+
                     <div className="header-admin-products_right-clear">
                         <button onClick={handleClear}>Xóa lọc</button>
                     </div>
@@ -193,108 +203,59 @@ function AdminProducts() {
                 </thead>
 
                 <tbody>
-                    {products.map(item => (
+                    {loading
+                        ? renderSkeletonRows(limit)
+                        : products.map(item => (
+                            <tr key={item._id}>
+                                <td>
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedIds.includes(item._id)}
+                                        onChange={(e) => {
+                                            if (e.target.checked) {
+                                                setSelectedIds(prev => [...prev, item._id]);
+                                            } else {
+                                                setSelectedIds(prev =>
+                                                    prev.filter(id => id !== item._id)
+                                                );
+                                            }
+                                        }}
+                                    />
+                                </td>
 
-                        <tr key={item._id}>
-                            <td>
-                                <input
-                                    type="checkbox"
-                                    checked={selectedIds.includes(item._id)}
-                                    onChange={(e) => {
-                                        if (e.target.checked) {
-                                            setSelectedIds(prev => [...prev, item._id]);
-                                        } else {
-                                            setSelectedIds(prev =>
-                                                prev.filter(id => id !== item._id)
-                                            );
-                                        }
-                                    }}
-                                />
-                            </td>
+                                <td className="product">
+                                    <img
+                                        src={item.thumbnail || "/no-image.png"}
+                                        alt={item.title}
+                                    />
+                                    <span>{item.title}</span>
+                                </td>
 
+                                <td>{item.price.toLocaleString()} đ</td>
 
-                            <td className="product">
-                                <img
-                                    src={item.thumbnail || "/no-image.png"}
-                                    alt={item.title}
-                                />
-                                <span>{item.title}</span>
-                            </td>
+                                <td>
+                                    <span className={`status ${item.status}`}>
+                                        {item.status}
+                                    </span>
+                                </td>
 
-                            <td>{item.price.toLocaleString()} đ</td>
+                                <td className="position">
+                                    <input type="number" />
+                                </td>
 
-                            <td>
-                                <span className={`status ${item.status}`}>
-                                    {item.status}
-                                </span>
-                            </td>
-
-                            <td className="position">
-                                <input type="number" />
-                            </td>
-
-                            <td className="actions">
-                                <Link to={`/admin/products/detail/${item.slug}`} className="view">👁</Link>
-                                <Link to={`/admin/products/edit/${item.slug}`} className="edit">✏️</Link>
-                                <Link className="delete">🗑</Link>
-                            </td>
-                        </tr>
-                    ))}
+                                <td className="actions">
+                                    <Link to={`/admin/products/detail/${item.slug}`} className="view">👁</Link>
+                                    <Link to={`/admin/products/edit/${item.slug}`} className="edit">✏️</Link>
+                                    <Link className="delete">🗑</Link>
+                                </td>
+                            </tr>
+                        ))
+                    }
                 </tbody>
+
             </table>
 
-            {pagination && (
-            <div className="pagination">
-                {pagination.currentPage > 1 && (
-                <button onClick={() => setSearchParams({ page: 1, limit })}>
-                    Trang đầu
-                </button>
-                )}
-
-                <button
-                disabled={pagination.currentPage === 1}
-                onClick={() =>
-                    setSearchParams({ page: pagination.currentPage - 1, limit })
-                }
-                >
-                ‹ Trước
-                </button>
-
-                {renderPages()}
-
-                {pagination.currentPage < pagination.totalPage && (
-                <button
-                    disabled={pagination.currentPage === pagination.totalPage}
-                    onClick={() =>
-                        setSearchParams({ page: pagination.currentPage + 1, limit })
-                    }
-                    >
-                    Sau ›
-                </button>
-                )}
-
-                <button
-                disabled={pagination.currentPage === pagination.totalPage}
-                onClick={() =>
-                    setSearchParams({ page: pagination.totalPage, limit })
-                }
-                >
-                    Trang cuối
-                </button>
-
-                <select
-                className="pagination-limit"
-                value={limit}
-                onChange={e =>
-                    setSearchParams({ page: 1, limit: Number(e.target.value) })
-                }
-                >
-                <option value={5}>5 / trang</option>
-                <option value={10}>10 / trang</option>
-                <option value={20}>20 / trang</option>
-                </select>
-            </div>
-            )}
+            {renderpagination(pagination, setSearchParams, limit)}
 
         </>
     );

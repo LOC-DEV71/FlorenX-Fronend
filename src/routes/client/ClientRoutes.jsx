@@ -11,6 +11,11 @@ import PrivateRoutes from "./PrivateRoutes";
 import ResetPassword from "../../client/pages/Auth/Reset-Pasword/ResetPassword";
 import ListCart from "../../client/pages/Cart/cartUser/ListCart";
 import { AuthProvider } from "../../context/client/AuthContext";
+import ProductsForCatgory from "../../client/pages/Home/productsForCategory/ProductsForCategory";
+import ProductDetail from "../../client/pages/Home/productsDetail/ProductDetail";
+import Checkout from "../../client/pages/Cart/checkout/checkout";
+import SearchPage from "../../client/components/search/searchPage";
+import ArticlesDetail from "../../client/pages/Home/section/status/new";
 
 function ClientRoutes() {
   return (
@@ -23,9 +28,16 @@ function ClientRoutes() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/forgot-password/otp" element={<ForgotPasswordOtp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/search" element={<SearchPage />} />
 
 
         <Route path="/cart" element={<ListCart />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/products/:slug" element={<ProductsForCatgory />} />
+        <Route path="/products/detail/:slug" element={<ProductDetail />} />
+
+
+        <Route path="/articles/detail/:slug" element={<ArticlesDetail/>}/>
 
         <Route element={<PrivateRoutes/>}>
           <Route path="/my-account" element={<MyAccount />} />

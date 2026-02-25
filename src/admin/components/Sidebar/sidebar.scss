@@ -1,41 +1,106 @@
-.sidebar-admin{
+.sidebar-admin {
+  width: 240px;
+  height: 100vh;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 14px;
+}
+
+.sidebar-admin_logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+
+  img {
+    width: 80px;
+    object-fit: contain;
+  }
+}
+
+.sidebar-admin_menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &-item {
     display: flex;
-    flex-direction: column;  
     align-items: center;
-    background: var(--bg);
-    color: var(--text);
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
 
-    &_logo{
-        max-width: 100px;
-        margin-top: 30px;
-        img{
-            width: 100%;
-        }
+    svg {
+      font-size: 18px;
+      color: #6b7280;
     }
 
-    &_menu{
-        margin-top: 40px;
-        &-item{
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            margin-bottom: 5px;
-            padding: 10px 2px 10px 5px;
-            a{
-                color: var(--text);
-                text-decoration: none;
-                font-size: 18px;
-                
-            }
-
-            svg{
-                font-size: 20px;
-            }
-        }
-
-        .active{
-            background: var(--bg-modal);
-        }
+    a {
+      color: #374151;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      flex: 1;
     }
+
+    &:hover {
+      background: #f3f4f6;
+
+      svg,
+      a {
+        color: #0ea5a5;
+      }
+    }
+
+    &.active {
+      background: #ecfdf5;
+
+      svg,
+      a {
+        color: #0ea5a5;
+        font-weight: 600;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 8px;
+        bottom: 8px;
+        width: 4px;
+        border-radius: 4px;
+        background: #0ea5a5;
+      }
+    }
+  }
+}
+@media (max-width: 1024px) {
+  .sidebar-admin {
+    width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar-admin {
+    width: 64px;
+    padding: 16px 8px;
+
+    &_logo {
+      img {
+        width: 40px;
+      }
+    }
+
+    &_menu-item {
+      justify-content: center;
+
+      a {
+        display: none;
+      }
+    }
+  }
 }

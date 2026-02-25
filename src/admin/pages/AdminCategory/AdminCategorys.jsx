@@ -1,32 +1,104 @@
-import { Fragment } from "react";
-import './AdminCategorys.scss'
-import { useState } from "react";
-import { useEffect } from "react";
-import {getCategorys} from '../../../services/Admin/products.Category';
-import {SearchOutlined, SwapOutlined} from '@ant-design/icons';
+import { Fragment, useEffect, useMemo, useState } from "react";
+import "./AdminCategorys.scss";
+import { getCategory, multiCategory } from "../../../services/Admin/Products.category";
+import { SearchOutlined, SwapOutlined } from "@ant-design/icons";
+import { toastError, toastSuccess } from "../../../utils/AlertFromSweetalert2";
+import {Link} from 'react-router-dom'
+
 function AdminCategory() {
-    const [categories, setCatogories] = useState([])
+    const [categories, setCategories] = useState([]);
+    const [selectedIds, setSelectedIds] = useState([]);
+    const [multi, setMulti] = useState("");
+    const [search, setSearch] = useState("");
+    const [sort, setSort] = useState("");
+    const [reload, setReload] = useState(false)
 
     useEffect(() => {
-        getCategorys()
-            .then(res => setCatogories(res.category))
-            .catch(console.error)
-    }, [])
+        getCategory({search, sort })
+            .then(res => setCategories(res.category || []))
+            .then(() => setSelectedIds([]))
+    }, [reload, sort, search]); 
+
+    // flatten toàn bộ tree
+    const flattenCategories = (data) => {
+        let result = [];
+        data.forEach(item => {
+            result.push(item);
+            if (item.children?.length) {
+                result = result.concat(flattenCategories(item.children));
+            }
+        });
+        return result;
+    };
+
+    const flatCategories = useMemo(
+        () => flattenCategories(categories),
+        [categories]
+    );
+
+    // lấy id của node + toàn bộ con
+    const getAllChildIds = (item) => {
+        let ids = [item._id];
+        if (item.children?.length) {
+            item.children.forEach(child => {
+                ids = ids.concat(getAllChildIds(child));
+            });
+        }
+        return ids;
+    };
+
+    const handleToggleCategory = (item, checked) => {
+        const ids = getAllChildIds(item);
+
+        if (checked) {
+            setSelectedIds(prev =>
+                Array.from(new Set([...prev, ...ids]))
+            );
+        } else {
+            setSelectedIds(prev =>
+                prev.filter(id => !ids.includes(id))
+            );
+        }
+    };
+
+    const handleSubmitChangeMulti = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await multiCategory({
+                action: multi,
+                selectedIds
+            });
+            if(res.ok){
+                setReload(prev => !prev)
+                toastSuccess(res.result.message)
+            } else {
+                toastError(res.result.message)
+            }
+            
+            
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
 
     const renderRows = (data, level = 0) => {
         return data.map(item => (
             <Fragment key={item._id}>
                 <tr>
-                    {/* checkbox */}
                     <td>
-                        <input type="checkbox" />
+                        <input
+                            type="checkbox"
+                            checked={selectedIds.includes(item._id)}
+                            onChange={(e) =>
+                                handleToggleCategory(item, e.target.checked)
+                            }
+                        />
                     </td>
 
                     <td className="category-name">
-                        <span
-                            style={{ paddingLeft: level * 24 }}
-                        >
-                            {level > 0 && "- "}
+                        <span style={{ paddingLeft: level * 24 }}>
+                            {level > 0 && "— "}
                             {item.title}
                         </span>
                     </td>
@@ -36,7 +108,7 @@ function AdminCategory() {
                             {item.status}
                         </span>
                     </td>
-
+                    
                     <td>{item.slug}</td>
 
                     <td className="actions">
@@ -51,77 +123,105 @@ function AdminCategory() {
         ));
     };
 
+
     return (
         <div>
+            {/* HEADER */}
             <div className="header-admin-category">
-                <h2 className="header-admin-category_left">Danh mục sản phẩm</h2>
-                <div style={{ marginBottom: 12 }} className="header-admin-category_right">
+                <div className="header-admin-category_left create">
+                    <Link to="/admin/product-categorys/create">Tạo Mới</Link>
+                </div>
 
+                <div className="header-admin-category_right">
+                    {/* SEARCH */}
                     <div className="header-admin-category_right-search">
-                        <input placeholder="Tìm kiếm danh mục" name="search"/>
-                        <button ><SearchOutlined /></button>
+                        <input
+                            placeholder="Tìm kiếm danh mục"
+                            value={search}
+                            onChange={e => setSearch(e.target.value)}
+                        />
+                        <button >
+                            <SearchOutlined />
+                        </button>
                     </div>
 
-                    {/* Change multi */}
+                    {/* MULTI */}
                     <div className="header-admin-category_right-multi">
                         <select
-                            
-                            
+                            value={multi}
+                            onChange={e => setMulti(e.target.value)}
                         >
                             <option value="">-- Chọn hành động --</option>
                             <option value="active">Active</option>
                             <option value="inactive">Inactive</option>
-                            <option value="delete-all">Xóa sản phẩm</option>
+                            <option value="delete-all">Xóa danh mục</option>
                         </select>
 
-                        <button
-                        >
+                        <button onClick={handleSubmitChangeMulti}>
                             Áp dụng
                         </button>
                     </div>
 
-
-                    {/* Sort */}
+                    {/* SORT */}
                     <div className="header-admin-category_right-sort">
-                        <SwapOutlined/>
                         <select
-        
+                            value={sort}
+                            onChange={e => setSort(e.target.value)}
                         >
-                            <option value=""> Sắp xếp theo </option>
-                            <option value="title-asc">Sắp xếp theo tên A-Z</option>
-                            <option value="title-desc">Sắp xếp theo tên Z-A</option>
-                            <option value="price-asc">Sắp xếp theo giá thấp đến cao</option>
-                            <option value="price-desc">Sắp xếp theo giá cao đến thấp</option>
+                            <option value="">Sắp xếp theo</option>
+                            <option value="title-asc">Tên A-Z</option>
+                            <option value="title-desc">Tên Z-A</option>
                         </select>
-
                     </div>
-                    
+
                     <div className="header-admin-category_right-clear">
-                        <button >Xóa lọc</button>
+                        <button
+                            onClick={() => {
+                                setSearch("");
+                                setSort("");
+                                fetchData();
+                            }}
+                        >
+                            Xóa lọc
+                        </button>
                     </div>
-
-
                 </div>
             </div>
-            <table className="admin-table">
-            <thead>
-                <tr>
-                    <th>
-                        <input type="checkbox" />
-                    </th>
-                    <th>Danh mục</th>
-                    <th>Trạng thái</th>
-                    <th>Slug</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
 
-            <tbody>
-                {renderRows(categories)}
-            </tbody>
-        </table>
+            {/* TABLE */}
+            <table className="admin-table">
+                <thead>
+                    <tr>
+                        <th>
+                            <input
+                                type="checkbox"
+                                checked={
+                                    flatCategories.length > 0 &&
+                                    selectedIds.length === flatCategories.length
+                                }
+                                onChange={(e) => {
+                                    if (e.target.checked) {
+                                        setSelectedIds(
+                                            flatCategories.map(c => c._id)
+                                        );
+                                    } else {
+                                        setSelectedIds([]);
+                                    }
+                                }}
+                            />
+                        </th>
+                        <th>Danh mục</th>
+                        <th>Trạng thái</th>
+                        <th>Slug</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {renderRows(categories)}
+                </tbody>
+            </table>
         </div>
-        
     );
 }
 

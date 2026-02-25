@@ -10,23 +10,23 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* MẶC ĐỊNH DARK */
 body {
   --bg: #0d0d0d;
   --bg-modal: #343434;
   --btn: #0d0d0d;
   --btn-hover: #343434;
   --text: #ffffff;
+  --text-inmodal: #ffffff;
   --btn-text: #ffffff;
 }
 
-/* LIGHT (override) */
 body.light {
-  --bg: #f5f6f8;        /* nền trang – sáng */
-  --bg-modal: #888889; /* form – đậm hơn nền */
-  --btn: #0d0d0d;      /* nút */
+  --bg: #f5f6f8;       
+  --bg-modal: #888889; 
+  --text-inmodal: white;
+  --btn: #0d0d0d;    
   --btn-hover: #343434;
-  --text: #0d0d0d;     /* chữ */
+  --text: #0d0d0d;     
   --btn-text: white;
 }
 

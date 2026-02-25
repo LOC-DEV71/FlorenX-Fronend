@@ -7,20 +7,22 @@ export const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [isAuth, setIsAuth] = useState(false);
   const [loadingAuth, setLoadingAuth] = useState(true);
-
+  const [cart, setCart] = useState({})
   useEffect(() => {
-    Promise.all([
-      getMe()
-        .then(res => setIsAuth(res.ok))
-        .catch(() => setIsAuth(false)),
-
-      createCart() 
-    ])
-    .finally(() => {
-      setLoadingAuth(false);
-    });
+    getMe()
+      .then(res => {
+        if (res.ok) {
+          setIsAuth(true);
+        } else {
+          setIsAuth(false);
+        }
+      })
+      .catch(() => setIsAuth(false))
+      .finally(() => {
+        createCart();
+        setLoadingAuth(false);
+      });
   }, []);
-
 
   return (
     <AuthContext.Provider value={{ isAuth, setIsAuth, loadingAuth }}>

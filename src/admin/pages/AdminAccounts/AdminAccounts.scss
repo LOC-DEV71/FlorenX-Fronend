@@ -1,0 +1,227 @@
+.admin-accounts {
+  th,
+  td {
+    vertical-align: middle;
+  }
+
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+
+  /* AVATAR */
+  .avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #f3f4f6;
+  }
+
+  /* NAME */
+  .account-name {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    strong {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    span {
+      font-size: 12px;
+      color: #6b7280;
+    }
+  }
+
+  /* EMAIL */
+  .email {
+    font-size: 14px;
+    color: #374151;
+  }
+
+  /* ROLE */
+  .role {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+
+    &.super-admin {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    &.admin {
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+
+    &.product-management {
+      background: #ecfdf5;
+      color: #059669;
+    }
+
+  }
+
+  /* ACTIONS */
+  .actions {
+    display: flex;
+    gap: 8px;
+
+    a {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f3f4f6;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s ease;
+
+      &.view {
+        color: #2563eb;
+      }
+
+      &.edit {
+        color: #7c3aed;
+      }
+
+      &.delete {
+        color: #dc2626;
+      }
+
+      &:hover {
+        background: #e5e7eb;
+      }
+    }
+  }
+}
+@media (max-width: 600px) {
+  .admin-accounts th,
+  .admin-accounts td {
+    display: none;
+  }
+
+  .admin-accounts th:nth-child(2),
+  .admin-accounts td:nth-child(2),
+  .admin-accounts th:nth-child(3),
+  .admin-accounts td:nth-child(3),
+  .admin-accounts th:last-child,
+  .admin-accounts td:last-child {
+    display: table-cell;
+  }
+
+  .admin-accounts {
+    overflow-x: hidden;
+  }
+}
+
+.header-admin-accounts {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  &_left {
+  &.create {
+    a {
+      padding: 10px 18px;
+      background: #0ea5a5;
+      color: #fff;
+      border-radius: 8px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: #0d9488;
+      }
+    }
+  }
+}
+}
+
+.header-admin-accounts_right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  &-search {
+    display: flex;
+    align-items: center;
+    background: #f5f7f8;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgb(126, 126, 126);
+    border-radius: 8px;
+    input {
+      border: none;
+      background: transparent;
+      padding: 10px 12px;
+      width: 220px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    button {
+      border: none;
+      background: transparent;
+      padding: 0 12px;
+      cursor: pointer;
+      color: #555;
+    }
+  }
+
+  &-multi,
+  &-sort {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    select {
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      background: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      border: 1px solid rgb(126, 126, 126);
+      border-radius: 8px;    
+    }
+
+    button {
+      padding: 9px 14px;
+      border-radius: 8px;
+      border: none;
+      background: #0ea5a5;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: #0d9488;
+      }
+    }
+  }
+
+  &-clear {
+    button {
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      background: #f3f4f6;
+      cursor: pointer;
+      font-size: 14px;
+    }
+  }
+}

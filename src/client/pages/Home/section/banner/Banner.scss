@@ -1,39 +1,38 @@
 .banner {
   width: 100%;
   overflow: hidden;
-  background: var(--bg-1);
 
   &-slide {
     width: 100%;
-    height: 540px; 
+    height: 400px;
+
     img {
       width: 100%;
       height: 100%;
-      object-fit: cover; 
+      object-fit: cover;
       display: block;
-      }
-}
-
+    }
+  }
 }
 
 .banner .slick-dots {
   bottom: 20px;
-}
 
-.banner .slick-dots li button {
-  width: 10px;
-  height: 10px;
-}
+  li button {
+    width: 10px;
+    height: 10px;
 
-.banner .slick-dots li button::before {
-  font-size: 10px;
-  color: #fff;
-  opacity: 0.6;
-}
+    &::before {
+      font-size: 10px;
+      color: #fff;
+      opacity: 0.6;
+    }
+  }
 
-.banner .slick-dots li.slick-active button::before {
-  color: #00e5ff;
-  opacity: 1;
+  li.slick-active button::before {
+    color: #00e5ff;
+    opacity: 1;
+  }
 }
 
 @media (max-width: 768px) {
@@ -41,3 +40,106 @@
     height: 260px;
   }
 }
+
+
+.slider {
+  display: grid;
+  padding: 0 55px;
+  grid-template-columns: 200px 1fr;
+  gap: 16px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+
+  &__nav {
+    background: #fff;
+    border-radius: 8px;
+    
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 2fr 1fr; 
+    gap: 16px;
+    min-width: 0;
+  }
+
+  &__main {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 16px;
+
+    &-top {
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    &-bottom {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+  }
+
+  &__side {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  &__banner,
+  &__side-item {
+    border-radius: 8px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+  }
+}
+
+
+
+@media (max-width: 1496px) {
+  .slider__content {
+    grid-template-columns: 1fr;
+  }
+
+  .slider__main-bottom {
+    display: none;
+  }
+
+  .slider__side{
+    display: flex;
+  }
+}
+
+@media (max-width: 1000px) {
+  .slider {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+
+  .slider__nav {
+    position: fixed;      
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100vh;
+    background: #fff;
+    border-radius: 0 8px 8px 0;
+    z-index: 1000;
+
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    pointer-events: none;
+
+  }
+  .slider__nav.is-active {
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+}
+

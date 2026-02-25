@@ -1,130 +1,221 @@
-.profile {
+.account {
   display: flex;
-  justify-content: center;
-  padding: 30px;
-  max-height: 80vh;
-  gap: 0;
-  background: var(--bg);
+  max-width: 1200px;
+  margin: 40px auto;
+  gap: 24px;
+  padding: 0 20px;
+}
 
-  &_left {
-    max-width: 320px;
-    width: 100%;
-    border: 1px solid rgba(73, 73, 73, 0.2);
-    padding: 20px;  
-    border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px;
-    background: var(--bg-modal);
-    color: var(--text);
+/* ===== LEFT ===== */
+.account_left {
+  width: 260px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
 
-    .bold{
-        font-weight: 700;
-        background: var(--bg);
-    }
+  h2 {
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+}
 
-    h2 {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 20px;
-    }
+.account_item {
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  transition: all 0.2s ease;
 
-    div {
-      padding: 12px 14px;
-      border-radius: 6px;
+  &:hover {
+    background: #f5f5f5;
+  }
+
+  &.active {
+    background: #ffeaea;
+    color: #e53935;
+    font-weight: 500;
+  }
+}
+
+/* ===== RIGHT ===== */
+.account_right {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* ===== BUTTON ===== */
+.btn-primary {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+/* ===== ORDERS ===== */
+.orders {
+
+  .order_tabs {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #eee;
+
+    span {
       cursor: pointer;
-      font-size: 15px;
-      color: var(--text);
-      transition: all 0.25s ease;
-
-      &:hover {
-        background: var(--bg);
-      }
+      padding-bottom: 10px;
+      position: relative;
+      font-size: 14px;
 
       &.active {
-        background: var(--bg-modal);
-        color: var(--text);
+        color: #e53935;
         font-weight: 500;
+
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: -1px;
+          width: 100%;
+          height: 2px;
+          background: #e53935;
+        }
       }
     }
   }
 
-  &_right {
-    flex: 1;
-    border: 3px solid var(--bg-modal);
-    padding: 20px;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
-    background: var(--bg-modal);
-    overflow-y: auto;
+  .order_card {
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 18px;
+    transition: 0.2s;
 
-    img{
-        max-width: 100px;
+    &:hover {
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  .order_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+
+  .status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+
+    &.pending { background: #fff3cd; color: #856404; }
+    &.shipping { background: #e3f2fd; color: #1565c0; }
+    &.done { background: #e8f5e9; color: #2e7d32; }
+    &.confirm { background: #e8f5e9; color: #00ff0d; }
+    &.cancel { background: #fdecea; color: #c62828; }
+  }
+
+  .order_item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+    text-decoration: none;
+    color: black;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    img {
+      width: 64px;
+      height: 64px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: #fafafa;
+      border: 1px solid #eee;
+    }
+
+    .info {
+      flex: 1;
+      font-size: 14px;
+    }
+
+    .price {
+      font-weight: 500;
+      font-size: 14px;
+    }
+  }
+
+  .order_footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    font-size: 14px;
+
+    strong {
+      color: #e53935;
+      font-size: 16px;
+    }
+  }
+}
+
+
+
+@media (max-width: 1024px) {
+  .account {
+    flex-direction: column;
+    padding: 0 20px;
+  }
+
+  .account_left {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .orders {
+    .order_item {
+      flex-direction: column;
+      align-items: flex-start;
+
+      img {
         width: 100%;
+        height: auto;
+      }
+
+      .price {
+        align-self: flex-end;
+      }
     }
 
-    form{
-        max-width: 1000px;
-        button{
-          max-width: 170px;
-          text-align: center;
-          cursor: pointer;
-          background: var(--btn);
-          color: var(--text);
-          box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;          
-          margin-bottom: 10px;
-          border-radius: 8px;
-          padding: 5px;
-
-          &:hover{
-            background: var(--btn-hover);
-          }
-        }
-        input{
-            max-width: 400px;
-            margin-right: 10px;
-            width: 100%;
-            height: 40px;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 10px;
-            box-sizing: border-box;
-
-            border: 1px solid var(--bg);
-            outline: none;
-            
-            &:focus{
-                border: 3px solid rgb(0, 128, 255);
-            }
-        }
-    }
-
-     h2 {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 20px;
-    }
-
-  }
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-
-  span{
-    max-width: 170px;
-    text-align: center;
-    cursor: pointer;
-    background: black;
-    color: white;
-    box-shadow: 0 0 0 3px rgb(179, 179, 179);
-    margin-bottom: 10px;
-    border-radius: 8px;
-    border: none;
-
-    &:hover{
-      background: rgb(118, 118, 118);
+    .order_footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
     }
   }
 }
-

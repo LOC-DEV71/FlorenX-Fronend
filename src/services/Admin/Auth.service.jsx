@@ -1,0 +1,39 @@
+const API_URL = "http://localhost:3000/api/v1"
+export const getAdminProfile = async () => {
+  const res = await fetch(`${API_URL}/auth/me`, {
+    method: "GET",
+    credentials: "include",
+  });
+
+  const data = await res.json();
+  return { ok: res.ok, ...data };
+};
+
+
+export const adminLogout = async () => {
+  const res = await fetch(`${API_URL}/auth/logout`, {
+    method: "POST",
+    credentials: "include"
+  });
+  const result = await res.json();
+  return { ok: res.ok, data: result };
+};
+
+
+export const adminLogin = async (data) => {
+  const res = await fetch(`${API_URL}/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(data),
+  });
+
+  const result = await res.json();
+
+  return {
+    ok: res.ok,
+    result
+  };
+};

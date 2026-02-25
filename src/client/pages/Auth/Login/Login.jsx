@@ -49,7 +49,7 @@ function Login(){
                                 <input type="email" name='email' placeholder="Email" onChange={handleChange}/>
                                 <input type="password" name='password' placeholder="Mật khẩu" onChange={handleChange}/>
                                 <br />
-                                <button type="submit">Đăng Nhập</button>
+                                <button type="submit" className='btn-dark'>Đăng Nhập</button>
                                 <Link to={"/forgot-password"}>Quên mật khẩu?</Link>
                             </div>
                         </form>

@@ -3,6 +3,7 @@ const API_URL = "http://localhost:3000/api/v1"
 export const createProducts = async data => {
     const res = await fetch(`${API_URL}/products/create`, {
         method: "POST",
+        credentials: "include",
         body: data
     });
     const result = await res.json();
@@ -34,7 +35,10 @@ export const getProducts = async (data) => {
 
     const res = await fetch(
         `${API_URL}/products?${params.toString()}`,
-        { method: "GET" }
+        { 
+            method: "GET",
+            credentials: "include"
+         }
     );
 
     const result = await res.json();
@@ -44,7 +48,10 @@ export const getProducts = async (data) => {
 export const getDetailProducts = async (data) => {
     const res = await fetch(
         `${API_URL}/products/detail/${data}`,
-        { method: "GET" }
+        { 
+            method: "GET",
+            credentials: "include"
+        }
     );
 
     const result = await res.json();
@@ -54,7 +61,8 @@ export const getDetailProducts = async (data) => {
 export const updateProducts = async (slug, data) => {
     const res = await fetch(`${API_URL}/products/update/${slug}`, {
         method: "PATCH",
-        body: data
+        body: data,
+        credentials: "include"
     });
     const result = await res.json();
     return { ok: res.ok, ...result };

@@ -2,16 +2,22 @@ import { Outlet } from "react-router-dom"
 import Header from "../components/Header/Header"
 import Footer from "../components/Footer/Footer"
 import Hero from "../components/Hero/Hero"
+import ChatWidget from "./chat"
+import { SliderNavProvider } from "../../context/client/sliderNavContext"
 
 function MainLayout(){
     return(
         <>
-            <Hero/>
-            <Header/>
-                <main>
-                    <Outlet/>
-                </main>
-            <Footer/>
+            <SliderNavProvider>
+                <Hero/>
+                <Header/>
+                    <main>
+                        <Outlet/>
+                        <ChatWidget/>
+                    </main>
+                <Footer/>
+            </SliderNavProvider>
+           
         </>
     )
 }

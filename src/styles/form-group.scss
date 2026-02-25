@@ -1,0 +1,80 @@
+.group{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 10px;
+    padding-right: 50px;
+
+    input{
+        max-width: 750px;
+        font-size: 20px;
+        padding: 5px;
+        border-radius: 8px;
+    }
+    select{
+        max-width: 750px;
+        font-size: 20px;
+        padding: 5px;
+        border-radius: 8px;
+    }
+}
+
+.btn-success{
+    margin-bottom: 20px;
+    background-color: green;
+    padding: 5px 10px 5px 10px;
+    font-size: 18px;
+    font-weight: 650;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    cursor: pointer;
+}
+.btn-danger{
+    margin-bottom: 20px;
+    background-color: red;
+    padding: 5px 10px 5px 10px;
+    font-size: 18px;
+    font-weight: 650;
+    text-decoration: none;
+    color: white;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    cursor: pointer;
+}
+
+.btn-dark{
+    width: 92%;
+    height: 35px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--btn-text);
+    background: var(--btn);
+    text-decoration: none;
+    &:hover{
+        background: var(--btn-hover);
+        box-shadow: var(--btn-hover);
+    }
+}
+
+.input-file {
+  display: none;
+}
+
+.btn-upload {
+  display: inline-block;
+  padding: 5px 10px;
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text-inmodal);
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.25s;
+  margin-bottom: 20px;
+}
+
+.btn-upload:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
