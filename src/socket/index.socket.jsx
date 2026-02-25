@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 //   autoConnect: false
 // });
 
-const socket = io("https://nodejs-production-a6f1.up.railway.app", {
+const socket = io(import.meta.env.VITE_API_URL, {
   withCredentials: true,
   autoConnect: false
 });
