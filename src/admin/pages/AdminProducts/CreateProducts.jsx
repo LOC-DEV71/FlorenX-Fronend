@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { createProducts } from "../../../services/Admin/Products.service";
-import { getCategorys } from "../../../services/Admin/Products.category";
+import { getCategorys } from "../../../services/Admin/Products.category"; 
 import {
   toastSuccess,
   toastError
