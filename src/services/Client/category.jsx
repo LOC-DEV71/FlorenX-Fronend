@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:3000/api/v1/client/categorys";
+// const API_URL = "http://localhost:3000/api/v1/client/categorys";
+const API_URL = "https://nodejs-production-a6f1.up.railway.app/api/v1/client/categorys";
 
 export const getCategory = async () => {
     const res = await fetch(`${API_URL}`, {

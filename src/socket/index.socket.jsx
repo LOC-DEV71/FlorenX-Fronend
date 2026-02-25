@@ -1,6 +1,11 @@
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:3000", {
+// const socket = io("http://localhost:3000", {
+//   withCredentials: true,
+//   autoConnect: false
+// });
+
+const socket = io("https://nodejs-production-a6f1.up.railway.app", {
   withCredentials: true,
   autoConnect: false
 });
