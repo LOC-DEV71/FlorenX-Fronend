@@ -3,7 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { getProducts, changeMulti } from "../../../services/Admin/Products.service";
 import "./AdminProducts.scss";
 import { toastSuccess, toastError } from '../../../utils/AlertFromSweetalert2';
-import { SwapOutlined, SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import { Skeleton } from "antd";
 import { renderpagination } from "../../../utils/Admin/paginaton";
 

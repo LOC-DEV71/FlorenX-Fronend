@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
 import "./Voucher.create.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { createVoucher } from "../../../services/Admin/Voucher.admin";
 import { toastError, toastSuccess } from "../../../utils/AlertFromSweetalert2";
 
