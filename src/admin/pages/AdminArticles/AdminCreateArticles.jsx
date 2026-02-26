@@ -9,7 +9,8 @@ function AdminCreateArticles() {
     title: "",
     description: "",
     content: "",
-    featured: "yes"
+    featured: "yes",
+    articleCategory: "news"
   });
   const [loading, setLoading] = useState(false);
   const [thumbnail, setThumbnail] = useState(null);
@@ -97,6 +98,18 @@ function AdminCreateArticles() {
             >
               <option value="yes">Nổi bậc</option>
               <option value="no">Không nổi bậc</option>
+            </select>
+          </div>
+          <div className="group">
+            <label htmlFor="articleCategory">Danh mục</label>
+            <select 
+              name="articleCategory" 
+              id="articleCategory"
+              value={form.articleCategory}
+              onChange={e => setForm({...form, articleCategory: e.target.value})}
+            >
+              <option value="news">Tin tức công nghệ</option>
+              <option value="vouchers">Chuyên trang khuyến mãi</option>
             </select>
           </div>
           

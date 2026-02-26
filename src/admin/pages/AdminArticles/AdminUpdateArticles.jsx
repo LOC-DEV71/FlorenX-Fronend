@@ -11,6 +11,7 @@ function AdminUpdateArticles() {
     description: "",
     content: "",
     featured: "",
+    articleCategory: ""
   });
   const [thumbnailPreview, setThumbnailPreview] = useState(null);
   const [thumbnailFile, setThumbnailFile] = useState(null);
@@ -123,6 +124,19 @@ function AdminUpdateArticles() {
               >
                 <option value="yes">Nổi bật</option>
                 <option value="no">Không nổi bật</option>
+              </select>
+            </div>
+
+            <div className="group">
+              <label htmlFor="articleCategory">Danh mục</label>
+              <select 
+                name="articleCategory" 
+                id="articleCategory"
+                value={form.articleCategory}
+                onChange={e => setForm({...form, articleCategory: e.target.value})}
+              >
+                <option value="news">Tin tức công nghệ</option>
+                <option value="vouchers">Chuyên trang khuyến mãi</option>
               </select>
             </div>
 

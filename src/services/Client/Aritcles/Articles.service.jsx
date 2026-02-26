@@ -1,9 +1,9 @@
 // const API_URL = "http://localhost:3000/api/v1/client/articles";
-const API_URL = "https://nodejs-production-a6f1.up.railway.app/api/v1/client/articles";
-// const API_URL = `${import.meta.env.VITE_API_URL}/client/articles`;
+// const API_URL = "https://nodejs-production-a6f1.up.railway.app/api/v1/client/articles";
+const API_URL = `${import.meta.env.VITE_API_URL}/client/articles`;
 
-export const getList = async () => {
-  const res = await fetch(`${API_URL}/get-list`, {
+export const getList = async (category) => {
+  const res = await fetch(`${API_URL}/get-list?category=${category}`, {
     method: "GET",
     credentials: "include",
   });

@@ -5,26 +5,29 @@ import { useEffect } from "react";
 import { toastError } from "../../../../../utils/AlertFromSweetalert2";
 import { getList } from "../../../../../services/Client/Aritcles/Articles.service";
 function Status() {
-    const [articles, setArticles] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [articleNews, setArticleNew] = useState([]);
+    const [articleVouchers, setArticleVouchers] = useState([]);
     useEffect(() => {
         const fetchApi = async () => {
             try {
-                const res = await getList();
-                if(res.ok){
-                    
-                    setArticles(res.result.articles)
-                } else{
-                    toastError(res.result.message)
-                }
+            const [newsRes, voucherRes] = await Promise.all([
+                getList("news"),
+                getList("vouchers")
+            ]);
+
+            if (newsRes.ok) setArticleNew(newsRes.result.articles);
+            else toastError(newsRes.result.message);
+
+            if (voucherRes.ok) setArticleVouchers(voucherRes.result.articles);
+            else toastError(voucherRes.result.message);
 
             } catch (error) {
-                console.error(error)
+            console.error(error);
             }
-        }
+        };
+
         fetchApi();
-    }, [])
-    console.log(articles)
+    }, []);
     return (
         <>
             <div className="status-wrap">
@@ -37,18 +40,11 @@ function Status() {
                     </div>
 
                     <div className="status-sale-grid">
-                        <Link className="sale-item">
-                            <img src="/img/banner2.png" />
-                        </Link>
-                        <Link className="sale-item">
-                            <img src="/img/banner2.png" />
-                        </Link>
-                        <Link className="sale-item">
-                            <img src="/img/banner2.png" />
-                        </Link>
-                        <Link className="sale-item">
-                            <img src="/img/banner2.png" />
-                        </Link>
+                        {articleVouchers.length > 0 ? articleVouchers.map(item => (
+                            <Link className="sale-item" key={item._id} to={`/articles/detail/${item.slug}`}>
+                                <img src={item.thumbnail} alt={item.title} />
+                            </Link>
+                        )) : "Chưa có tin tức"}
                     </div>
                 </section>
 
@@ -60,7 +56,7 @@ function Status() {
                     </div>
 
                     <div className="status-news-grid">
-                        {articles.map(item => (
+                        {articleNews.map(item => (
                             <Link className="news-item" to={`/articles/detail/${item.slug}`} key={item._id}>
                                 <img src={item.thumbnail} />
                                 <p>{item.description}</p>
