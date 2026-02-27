@@ -6,13 +6,13 @@ import { io } from "socket.io-client";
 // });
 
 
-const socket = io(import.meta.env.VITE_API_URL, {
+const socket = io(import.meta.env.VITE_API_URL_SOCKET, {
   transports: ["websocket"],
   withCredentials: true,
 });
 
 
-// const socket = io("https://nodejs-production-a6f1.up.railway.app/", {
+// const socket = io("https://nodejs-production-a6f1.up.railway.app", {
 //   withCredentials: true,
 //   autoConnect: false
 // });
