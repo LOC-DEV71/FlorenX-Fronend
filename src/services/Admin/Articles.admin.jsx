@@ -1,5 +1,5 @@
-const API_URL = "http://localhost:3000/api/v1/articles"
-// const API_URL = `${import.meta.env.VITE_API_URL}/articles`;
+// const API_URL = "http://localhost:3000/api/v1/articles"
+const API_URL = `${import.meta.env.VITE_API_URL}/articles`;
 
 export const getListArticle = async (data) => {
     const params = new URLSearchParams();

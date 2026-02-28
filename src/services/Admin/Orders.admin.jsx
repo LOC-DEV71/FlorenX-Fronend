@@ -1,5 +1,5 @@
-const API_URL = "http://localhost:3000/api/v1/orders";
-// const API_URL = `${import.meta.env.VITE_API_URL}/orders`;
+// const API_URL = "http://localhost:3000/api/v1/orders";
+const API_URL = `${import.meta.env.VITE_API_URL}/orders`;
 
 
 export const getOrders = async (data) => {
