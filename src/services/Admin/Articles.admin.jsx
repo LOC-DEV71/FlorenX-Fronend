@@ -2,6 +2,19 @@
 // const API_URL = "https://nodejs-production-a6f1.up.railway.app/api/v1/articles"
 const API_URL = `${import.meta.env.VITE_API_URL}/articles`;
 
+export const getListArticle = async (data) => {
+    const params = new URLSearchParams();
+    if (data.page) params.append("page", data.page);
+    if (data.limit) params.append("limit", data.limit);
+    if (data.sort) params.append("sort", data.sort);
+    if (data.search) params.append("search", data.search);
+    const res = await fetch(`${API_URL}/get-list?${params.toString()}`, {
+        method: "GET",
+        credentials: "include"
+    })
+    const result = await res.json();
+    return {ok: res.ok, result}
+}
 
 export const createArticle = async (data) => {
     const res = await fetch(`${API_URL}/create`, {
@@ -26,6 +39,19 @@ export const updateAticles = async (data) => {
         method: "POST",
         credentials: "include",
         body: data.formData
+    });
+    const result = await res.json();
+    return {ok: res.ok, result}
+}
+
+export const changeMulti = async (data) => {
+    const res = await fetch(`${API_URL}/change-multi`, {
+        method: "POST", 
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify(data)
     });
     const result = await res.json();
     return {ok: res.ok, result}
