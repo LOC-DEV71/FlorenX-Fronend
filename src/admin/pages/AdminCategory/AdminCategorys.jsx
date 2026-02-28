@@ -1,8 +1,8 @@
 import { Fragment, useEffect, useMemo, useState } from "react";
 import "./AdminCategorys.scss";
-import { getCategory, multiCategory } from "../../../services/Admin/Products.category";
+import { getCategory, multiCategory, deleteCatgory } from "../../../services/Admin/Products.category";
 import { SearchOutlined, SwapOutlined } from "@ant-design/icons";
-import { toastError, toastSuccess } from "../../../utils/AlertFromSweetalert2";
+import { confirmation, toastError, toastSuccess } from "../../../utils/AlertFromSweetalert2";
 import {Link} from 'react-router-dom'
 
 function AdminCategory() {
@@ -82,6 +82,7 @@ function AdminCategory() {
     };
 
 
+
     const renderRows = (data, level = 0) => {
         return data.map(item => (
             <Fragment key={item._id}>
@@ -112,8 +113,8 @@ function AdminCategory() {
                     <td>{item.slug}</td>
 
                     <td className="actions">
-                        <a className="edit">✏️</a>
-                        <a className="delete">🗑</a>
+                        <Link className="edit">✏️</Link>
+                        <button className="delete" onClick={e => hanldeDelete(e, item._id)}>🗑</button>
                     </td>
                 </tr>
 
@@ -123,6 +124,24 @@ function AdminCategory() {
         ));
     };
 
+    const hanldeDelete = async (e, id) => {
+        e.preventDefault();
+        const result = await confirmation();
+        if(!result.isConfirmed){
+            return;
+        }
+        try {
+            const res = await deleteCatgory(id);
+            if(res.ok){
+                toastSuccess(res.result.message)
+                setReload(prev => !prev)
+            } else {
+                toastError(res.result.message)
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
     return (
         <div>
