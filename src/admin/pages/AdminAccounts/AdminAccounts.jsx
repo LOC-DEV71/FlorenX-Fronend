@@ -2,7 +2,7 @@ import { Link, useParams, useSearchParams } from 'react-router-dom'
 import './AdminAccounts.scss'
 import { SearchOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
-import { getAccounts, changeMultiAccounts } from '../../../services/Admin/Accounts.admin';
+import { getAccounts, changeMultiAccounts, deleteAccounts } from '../../../services/Admin/Accounts.admin';
 import { confirmation, toastError, toastSuccess } from '../../../utils/AlertFromSweetalert2';
 import { renderpagination } from "../../../utils/Admin/paginaton";
 
@@ -51,6 +51,25 @@ function AdminAccounts() {
         }
     }
 
+
+    const handleDeleteAccounts = async (e, id) => {
+        e.preventDefault();
+        const result = await confirmation();
+        if(!result.isConfirmed){
+            return;
+        }
+        try {
+            const res = await deleteAccounts(id);
+            if(res.ok){
+                toastSuccess(res.result.message)
+                setReload(prev => !prev)
+            } else {
+                toastError(res.result.message)
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
     return (
         <>
@@ -173,9 +192,9 @@ function AdminAccounts() {
                             </td>
 
                             <td className="actions">
-                                <a className="view">👁</a>
-                                <a className="edit">✏️</a>
-                                <a className="delete">🗑</a>
+                                <Link className="view">👁</Link>
+                                <Link className="edit">✏️</Link>
+                                <button className="delete" onClick={e => handleDeleteAccounts(e, item._id)}>🗑</button>
                             </td>
                         </tr>
                     ))}

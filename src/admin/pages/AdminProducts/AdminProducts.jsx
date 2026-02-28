@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { getProducts, changeMulti } from "../../../services/Admin/Products.service";
+import { getProducts, changeMulti, deleteProduct } from "../../../services/Admin/Products.service";
 import "./AdminProducts.scss";
-import { toastSuccess, toastError } from '../../../utils/AlertFromSweetalert2';
+import { toastSuccess, toastError, confirmation } from '../../../utils/AlertFromSweetalert2';
 import { SearchOutlined } from '@ant-design/icons';
 import { Skeleton } from "antd";
 import { renderpagination } from "../../../utils/Admin/paginaton";
@@ -109,6 +109,25 @@ function AdminProducts() {
             </tr>
         ));
     };
+
+    const handleDelete = async (id) => {
+        const result = await confirmation();
+        
+        if (!result.isConfirmed) {
+            return; 
+        }
+        try {
+            const res = await deleteProduct(id); 
+            if(res.ok){
+                toastSuccess(res.result.message)
+                setReload(prev => !prev)
+            } else {
+                toastError(res.result.message)
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
 
     return (
@@ -246,7 +265,7 @@ function AdminProducts() {
                                 <td className="actions">
                                     <Link to={`/admin/products/detail/${item.slug}`} className="view">👁</Link>
                                     <Link to={`/admin/products/edit/${item.slug}`} className="edit">✏️</Link>
-                                    <Link className="delete">🗑</Link>
+                                    <button className="delete" onClick={() => handleDelete(item._id)}>🗑</button>
                                 </td>
                             </tr>
                         ))

@@ -30,6 +30,7 @@ function Sidebar() {
     const accessCskh = admin?.role_permission?.includes("access-cskh");
     const viewVouchers = admin?.role_permission?.includes("view-vouchers");
     const viewOrders = admin?.role_permission?.includes("view-orders");
+    const viewArticle = admin?.role_permission?.includes("view-articles");
     const renderSkeletonRows = (rows = 6) => {
         return Array.from({ length: rows }).map((_, index) => (
             <div key={index} className="sidebar-admin_menu-item">
@@ -64,9 +65,12 @@ function Sidebar() {
                             </div>
                         }
 
-                        <div className={`sidebar-admin_menu-item ${location.pathname === "/admin/articles" ? "active" : ""}`}>
-                            <FormOutlined /><Link to={"/admin/articles"}>Bài viết</Link>
-                        </div>
+                        {viewArticle && 
+                            <div className={`sidebar-admin_menu-item ${location.pathname === "/admin/articles" ? "active" : ""}`}>
+                                <FormOutlined /><Link to={"/admin/articles"}>Bài viết</Link>
+                            </div>
+                        }
+                        
 
                         {viewOrders && 
                             <div className={`sidebar-admin_menu-item ${location.pathname === "/admin/orders" ? "active" : ""}`}>

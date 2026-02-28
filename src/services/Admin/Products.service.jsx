@@ -71,3 +71,12 @@ export const updateProducts = async (slug, data) => {
     return { ok: res.ok, ...result };
 };
 
+export const deleteProduct = async (id) => {
+    const res = await fetch (`${API_URL}/products/delete?id=${id}`, {
+        method: "DELETE",
+        credentials: "include"
+    });
+    const result = await res.json();
+    return {ok: res.ok, result}
+}
+

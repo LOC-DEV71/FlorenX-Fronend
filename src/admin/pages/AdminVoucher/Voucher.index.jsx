@@ -2,8 +2,8 @@ import { Link, useSearchParams } from "react-router-dom";
 import "./Voucher.index.scss";
 import { SearchOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import { changeMultiVouchers, getListVouchers } from "../../../services/Admin/Voucher.admin";
-import { toastError, toastSuccess } from "../../../utils/AlertFromSweetalert2";
+import { changeMultiVouchers, deleteVoucher, getListVouchers } from "../../../services/Admin/Voucher.admin";
+import { confirmation, toastError, toastSuccess } from "../../../utils/AlertFromSweetalert2";
 import { renderpagination } from "../../../utils/Admin/paginaton";
 
 function AdminVouchers() {
@@ -51,6 +51,25 @@ function AdminVouchers() {
             console.error(error)
         }
         
+    }
+
+    const handleDelete = async (e, id) => {
+        e.preventDefault();
+        const result = await confirmation();
+        if(!result.isConfirmed){
+            return;
+        }
+        try {
+            const res = await deleteVoucher(id);
+            if(res.ok){
+                toastSuccess(res.result.message)
+                setReload(prev => !prev)
+            } else {
+                toastError(res.result.message)
+            }
+        } catch (error) {
+            console.error(error)
+        }
     }
 
 
@@ -161,7 +180,7 @@ function AdminVouchers() {
                             <td className="actions">
                                 <Link className="view">👁</Link>
                                 <Link to={`/admin/vouchers/edit/${item._id}`} className="edit">✏️</Link>
-                                <Link className="delete">🗑</Link>
+                                <button className="delete" onClick={e => handleDelete(e, item._id)}>🗑</button>
                             </td>
                         </tr>
                     ))}

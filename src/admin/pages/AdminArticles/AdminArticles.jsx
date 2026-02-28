@@ -3,8 +3,8 @@ import "./AdminArticles.scss";
 import { SearchOutlined } from "@ant-design/icons"
 import { useState } from "react";
 import { useEffect } from "react";
-import { changeMulti, getListArticle } from "../../../services/Admin/Articles.admin";
-import { toastError, toastSuccess } from "../../../utils/AlertFromSweetalert2";
+import { changeMulti, getListArticle, deleteArticle } from "../../../services/Admin/Articles.admin";
+import { confirmation, toastError, toastSuccess } from "../../../utils/AlertFromSweetalert2";
 import { renderpagination } from "../../../utils/Admin/paginaton";
 
 function AdminArticles() {
@@ -47,6 +47,25 @@ function AdminArticles() {
             }
         } catch (error) {
             console.error();
+        }
+    }
+
+    const handleDelete = async (e, id) => {
+        e.preventDefault();
+        const result = await confirmation();
+        if(!result.isConfirmed){
+            return;
+        }
+        try {
+            const res = await deleteArticle(id);
+            if(res.ok){
+                toastSuccess(res.result.message)
+                setReload(prev => !prev)
+            } else {
+                toastError(res.result.message)
+            }
+        } catch (error) {
+            console.error(error)
         }
     }
 
@@ -185,7 +204,7 @@ function AdminArticles() {
                             <td className="actions">
                                 <Link to={`/admin/articles/detail/${item.slug}`} className="view">👁</Link>
                                 <Link to={`/admin/articles/update/${item.slug}`} className="edit">✏️</Link>
-                                <Link className="delete">🗑</Link>
+                                <button className="delete" onClick={e => handleDelete(e, item._id)}>🗑</button>
                             </td>
                         </tr>
                     ))}
