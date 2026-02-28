@@ -57,3 +57,12 @@ export const createCategory = async (data) => {
     const result = await res.json();
     return {ok: res.ok, result};    
 }
+
+export const deleteCatgory = async (id) => {
+    const res = await fetch(`${API_URL}/delete?id=${id}`, {
+        method: "DELETE",
+        credentials: "include"
+    })
+    const result = await res.json();
+    return {ok: res.ok, result}
+}
