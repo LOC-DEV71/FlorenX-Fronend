@@ -105,8 +105,9 @@ function RolePermission() {
                 </div>
 
                 <div className="rp-actions">
-                    <button className="btn">Hủy</button>
-                    <button className="btn primary">Lưu thay đổi</button>
+                    <button className="btn primary" onClick={handleUpdate}>
+                        Lưu phân quyền
+                    </button>
                 </div>
             </div>
 
@@ -228,12 +229,7 @@ function RolePermission() {
                         </div>
                     </div>
 
-                    <div className="rp-perms-foot">
-                        <button className="btn">Đặt lại</button>
-                        <button className="btn primary" onClick={handleUpdate}>
-                            Lưu phân quyền
-                        </button>
-                    </div>
+                    
                 </div>
             </div>
         </div>

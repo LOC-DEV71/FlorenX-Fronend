@@ -2,13 +2,15 @@ import { useEffect, useState, Fragment } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { SearchOutlined, SwapOutlined } from "@ant-design/icons";
 import "./AdminRole.scss";
-import { getRoles } from "../../../services/Admin/Roles.serrvice";
+import { getRoles, deleteRole } from "../../../services/Admin/Roles.serrvice";
 import { renderpagination } from "../../../utils/Admin/paginaton";
+import { confirmation, toastError, toastSuccess } from "../../../utils/AlertFromSweetalert2";
 
 function AdminRole() {
     const [roles, setRoles] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
     const [pagination, setPagination] = useState([])
+    const [reload, setReload] = useState(false)
     const page = Number(searchParams.get("page")) || 1;
     const limit = Number(searchParams.get("limit")) || 5;
     useEffect(() => {
@@ -20,8 +22,26 @@ function AdminRole() {
                 }
             })
             .catch(console.error);
-    }, [page, limit])
+    }, [page, limit, reload])
 
+     const handleDelete = async (id) => {
+        const result = await confirmation();
+        
+        if (!result.isConfirmed) {
+            return; 
+        }
+        try {
+            const res = await deleteRole(id); 
+            if(res.ok){
+                toastSuccess(res.result.message)
+                setReload(prev => !prev)
+            } else {
+                toastError(res.result.message)
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
     return (
         <>
             <div className="header-admin-role">
@@ -115,7 +135,7 @@ function AdminRole() {
                                     <Link to={`/admin/roles/edit/`} className="edit">
                                         ✏️
                                     </Link>
-                                    <button className="delete" type="button" title="Xoá">
+                                    <button className="delete" type="button" title="Xoá" onClick={e => handleDelete(e, item._id)}>
                                         🗑
                                     </button>
                                 </td>

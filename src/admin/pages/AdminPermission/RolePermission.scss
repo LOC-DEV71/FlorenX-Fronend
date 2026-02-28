@@ -47,8 +47,7 @@
 
         &.primary {
           border: none;
-          background: linear-gradient(135deg, rgba(0, 229, 255, 0.35), rgba(0, 229, 255, 0.12));
-          box-shadow: 0 10px 30px rgba(0, 229, 255, 0.18);
+          background: linear-gradient(135deg, rgba(0, 229, 255, 0.35), rgba(48, 161, 174, 0.12));
         }
 
         &:disabled {

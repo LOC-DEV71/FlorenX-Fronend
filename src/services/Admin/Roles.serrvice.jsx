@@ -1,5 +1,5 @@
-// const API_URL = "http://localhost:3000/api/v1/roles";
-const API_URL = `${import.meta.env.VITE_API_URL}/roles`;
+const API_URL = "http://localhost:3000/api/v1/roles";
+// const API_URL = `${import.meta.env.VITE_API_URL}/roles`;
 
 export const createRoles = async data => {
     const res = await fetch(`${API_URL}/create`, {
@@ -49,6 +49,15 @@ export const getRolesPermission = async () => {
     const res = await fetch(`${API_URL}`, {
         method: "GET",
         credentials: "include",
+    })
+    const result = await res.json();
+    return {ok: res.ok, result}
+}
+
+export const deleteRole = async (id) => {
+    const res = await fetch(`${API_URL}/delete`, {
+        method: "DELETE",
+        credentials: "include"
     })
     const result = await res.json();
     return {ok: res.ok, result}
