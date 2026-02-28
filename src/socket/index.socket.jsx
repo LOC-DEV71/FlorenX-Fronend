@@ -12,9 +12,5 @@ const socket = io(import.meta.env.VITE_API_URL_SOCKET, {
 });
 
 
-// const socket = io("https://nodejs-production-a6f1.up.railway.app", {
-//   withCredentials: true,
-//   autoConnect: false
-// });
 
 export default socket;
