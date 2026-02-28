@@ -20,6 +20,8 @@ function MyAccount() {
   const [tab, setTab] = useState("profile");
   const [orders, setOrders] = useState([]);
   const [statusFilter, setStatusFilter] = useState("all");
+  const [orderId, setOrderId] = useState("")
+  const [productId, setProductId] = useState("")
 
   useEffect(() => {
     getMyAccount()
@@ -199,6 +201,7 @@ function MyAccount() {
                   </div>
 
                   {order.items.map((item, i) => (
+                    <>
                     <Link key={i} className="order_item" to={`/products/detail/${item.slug}`}>
                       <img src={item.thumbnail} alt="" />
                       <div className="info">
@@ -209,6 +212,9 @@ function MyAccount() {
                         {item.price.toLocaleString()}₫
                       </div>
                     </Link>
+                    <Link  to={`/products/detail/${item.slug}`}>Đánh giá sản phẩm</Link>
+                    </>
+                    
                   ))}
 
                   <div className="order_footer">

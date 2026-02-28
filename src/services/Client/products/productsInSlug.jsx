@@ -40,3 +40,17 @@ export const getProductDetail = async (slug) => {
   const result = await res.json();
   return { ok: res.ok, result };
 };
+
+
+export const evaluateProduct = async (product_id, data) => {
+  const res = await fetch(`${API_URL}/evaluate?product_id=${product_id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "include",
+    body: JSON.stringify(data)
+  })
+  const result = await res.json();
+  return {ok: res.ok, result}
+}

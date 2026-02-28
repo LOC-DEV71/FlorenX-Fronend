@@ -6,6 +6,7 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [isAuth, setIsAuth] = useState(false);
+  const [user, setUser] = useState([])
   const [loadingAuth, setLoadingAuth] = useState(true);
   const [cart, setCart] = useState({})
   useEffect(() => {
@@ -13,6 +14,7 @@ export function AuthProvider({ children }) {
       .then(res => {
         if (res.ok) {
           setIsAuth(true);
+          setUser(res.data.user)
         } else {
           setIsAuth(false);
         }
@@ -25,7 +27,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuth, setIsAuth, loadingAuth }}>
+    <AuthContext.Provider value={{ isAuth, setIsAuth, loadingAuth, user }}>
       {children}
     </AuthContext.Provider>
   );

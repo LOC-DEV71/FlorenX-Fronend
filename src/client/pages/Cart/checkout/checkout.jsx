@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./checkout.scss";
 import { SafetyCertificateOutlined } from "@ant-design/icons";
 
@@ -10,6 +10,7 @@ import { toastError, toastSuccess } from "../../../../utils/AlertFromSweetalert2
 
 function Checkout() {
   const [cart, setCart] = useState([]);
+  const location = useLocation();
   const [voucherList, setVoucherList] = useState([]);
   const [voucherId, setVoucherId] = useState(null);
   const [selectedVoucher, setSelectedVoucher] = useState(null);
@@ -22,7 +23,6 @@ function Checkout() {
     address: ""
   });
 
-  // ===== FETCH DATA =====
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,7 +30,6 @@ function Checkout() {
         if (cartRes.ok) {
           setCart(cartRes.result.products || []);
 
-          // ✅ FIX: chặn "null" string
           const vId = cartRes.result.voucher_id;
           setVoucherId(vId && vId !== "null" ? vId : null);
         }
@@ -48,7 +47,6 @@ function Checkout() {
     fetchData();
   }, []);
 
-  // ===== FIND SELECTED VOUCHER =====
   useEffect(() => {
     if (!voucherId) {
       setSelectedVoucher(null);
@@ -61,7 +59,6 @@ function Checkout() {
   if (loading) return <div className="checkout">Đang tải...</div>;
   if (!cart.length) return <div className="checkout">Giỏ hàng trống</div>;
 
-  // ===== PRICE =====
   const totalPrice = cart.reduce(
     (sum, item) =>
       sum +
@@ -103,7 +100,6 @@ function Checkout() {
       slug: item.slug
     }));
 
-  // ===== ORDER =====
   const handleOrder = async () => {
     if (!shipping.fullName || !shipping.phone || !shipping.address) {
       toastError("Vui lòng nhập đầy đủ thông tin giao hàng");
@@ -121,7 +117,6 @@ function Checkout() {
         payment_method: "cod"
       };
 
-      // ✅ CHỈ GỬI voucher_id KHI CÓ
       if (voucherId) {
         payload.voucher_id = voucherId;
       }
@@ -133,6 +128,7 @@ function Checkout() {
         setVoucherId(null);
         setSelectedVoucher(null);
         toastSuccess("Đặt hàng thành công");
+        window.location.href = "/my-account"
       } else {
         toastError(res.result.message || "Đặt hàng thất bại");
       }

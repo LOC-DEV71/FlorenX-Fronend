@@ -2,21 +2,30 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Skeleton } from "antd";
 import "./ProductDetail.scss";
-import { getProductDetail, getProductsInSlugSimilar } from "../../../../services/Client/products/productsInSlug";
+import { evaluateProduct, getProductDetail, getProductsInSlugSimilar } from "../../../../services/Client/products/productsInSlug";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { addToCart } from "../../../../services/Client/AuthService/Cart.service";
-import { toastSuccess } from "../../../../utils/AlertFromSweetalert2";
-
+import { toastError, toastSuccess } from "../../../../utils/AlertFromSweetalert2";
+import TinyEditor from "../../../../Tiny/TinyEditor";
+import { useContext } from "react";
+import { AuthContext } from "../../../../context/client/AuthContext";
 function ProductDetail() {
   const { slug } = useParams();
+
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("")
+
+  const { user } = useContext(AuthContext);
+
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("description");
   const [currentThumbnail, setCurrentThumbnail] = useState("");
   const [data, setData] = useState([]);
+  const [reload, setReload] = useState(false)
 
 
   useEffect(() => {
@@ -36,7 +45,7 @@ function ProductDetail() {
     };
 
     fetchDetail();
-  }, [slug]);
+  }, [slug, reload]);
 
   useEffect(() => {
     if (!product?.product_category_id) return;
@@ -48,7 +57,7 @@ function ProductDetail() {
         }
       } catch (err) {
         console.error(err);
-      } 
+      }
     };
 
     fetchSimilar();
@@ -133,7 +142,8 @@ function ProductDetail() {
     images = [],
     evaluate = [],
     featured,
-    specs = []
+    specs = [],
+    _id
   } = product;
 
   const priceOld =
@@ -200,14 +210,32 @@ function ProductDetail() {
     e.preventDefault();
     try {
       const res = await addToCart(product._id);
-      if(res.ok){
+      if (res.ok) {
         toastSuccess(res.result.message)
       }
     } catch (error) {
-      
+      console.error(error)
     }
-  }  
+  }
 
+  const handleEvaluate = async (e, id) => {
+    e.preventDefault();
+    try {
+      const res = await evaluateProduct(id, { rating, comment })
+      if (res.ok) {
+        toastSuccess(res.result.message)
+        setReload(prev => !prev)
+      } else {
+        toastError(res.result.message)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const hasReviewed = evaluate.some(
+    (item) => item.user_id === user?._id
+  );
 
   return (
     <div className="product-detail-page">
@@ -321,22 +349,56 @@ function ProductDetail() {
 
         {activeTab === "review" && (
           <div className="tab-review">
-            {evaluate.length === 0 ? (
-              <div>
-                <h3>Đánh giá sản phẩm {title}</h3>
+            <div className="review-box">
+              <h3 className="review-box__title">
+                Đánh giá sản phẩm {title}
+              </h3>
+
+              <div className="review-box__rating">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <span
+                    key={star}
+                    className={`star ${rating >= star ? "active" : ""}`}
+                    onClick={() => setRating(star)}
+                  >
+                    ★
+                  </span>
+                ))}
+              </div>
+
+              <TinyEditor
+                className="review-box__textarea"
+                value={comment}
+                onChange={(content) => setComment(content)}
+              />
+
+              <button
+                onClick={(e) => handleEvaluate(e, _id)}
+                className="review-box__btn"
+                disabled={hasReviewed} 
+              >
+                {hasReviewed ? "Bạn đã đánh giá" : "Gửi đánh giá"}
+              </button>
+            </div>
+
+            <div className="review-list">
+              {evaluate.length === 0 ? (
                 <p className="empty-review">
                   Chưa có đánh giá nào cho sản phẩm này.
                 </p>
-              </div>
-            ) : (
-              evaluate.map((item, index) => (
-                <div className="review-item" key={index}>
-                  <strong>{item.user_name || "Người dùng"}</strong>
-                  <div>⭐ {item.rating || 5}</div>
-                  <p>{item.comment || "Không có nội dung"}</p>
-                </div>
-              ))
-            )}
+              ) : (
+                evaluate.map((item, index) => (
+                  <div className="review-item" key={index}>
+                    <strong>{item.user_name || "Người dùng"}</strong>
+                    <div>⭐ {item.rating}</div>
+                    <p
+                      dangerouslySetInnerHTML={{ __html: item.comment }}
+                    />
+                  </div>
+                ))
+              )}
+            </div>
+
           </div>
         )}
       </div>
