@@ -90,8 +90,9 @@ function AdminArticles() {
                         <select
                             value={sort}
                             onChange={e => setSort(e.target.value)}
+
                         >
-                            <option value=""> Sắp xếp theo </option>
+                            <option value=""> -- Sắp xếp theo -- </option>
                             <option value="title-asc">Sắp xếp theo tên A-Z</option>
                             <option value="title-desc">Sắp xếp theo tên Z-A</option>
                             <option value="articleCategory-vouchers">Tin tức về vouchers</option>
