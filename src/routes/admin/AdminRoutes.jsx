@@ -196,19 +196,28 @@ function AdminRoutes() {
           <Route 
             path="articles" 
             element={
+              <PermissionGuard permission={"view-articles"}>
                 <AdminArticles/>
+              </PermissionGuard>
+                
             } 
           />
           <Route 
             path="articles/create" 
             element={
+              <PermissionGuard permission={"create-articles"}>
                 <AdminCreateArticles/>
+              </PermissionGuard>
+                
             } 
           />
           <Route 
             path="articles/update/:slug" 
             element={
-                <AdminUpdateArticles/>
+              <PermissionGuard permission={"update-articles"}>
+                 <AdminUpdateArticles/>
+              </PermissionGuard>
+               
             } 
           />
         </Route>
