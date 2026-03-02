@@ -154,7 +154,18 @@ function KeyBoard() {
                     </div>
 
                     <div className="products_main-item-content-evaluate">
-                      0.0 (0 đánh giá)
+                      {(() => {
+                        const reviews = item.evaluate || [];
+
+                        if (reviews.length === 0) {
+                          return "0.0 ⭐  (0 đánh giá)";
+                        }
+
+                        const total = reviews.reduce((sum, r) => sum + r.rating, 0);
+                        const avg = (total / reviews.length).toFixed(1);
+
+                        return `${avg} ⭐  (${reviews.length} đánh giá)`;
+                      })()}
                     </div>
                   </div>
                 </Link>

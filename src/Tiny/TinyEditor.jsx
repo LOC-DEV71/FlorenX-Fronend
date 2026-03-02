@@ -3,7 +3,7 @@ import { Editor } from "@tinymce/tinymce-react";
 function TinyEditor({ value, onChange }) {
   return (
     <Editor
-      apiKey={import.meta.env.KEY_TINY_MCE}
+      apiKey={`${import.meta.env.KEY_TINY_MCE}`}
       // apiKey="cbfb1qgr63feg6t8dwsgf07ldx5wqcf9n2sjevm5kf43uzqs"
       value={value}
       onEditorChange={onChange}

@@ -237,6 +237,10 @@ function ProductDetail() {
     (item) => item.user_id === user?._id
   );
 
+  const evaluateTotals = evaluate.reduce((total, item) => {
+    return total + item.rating; 
+  }, 0);
+  const average = evaluateTotals / evaluate.length;
   return (
     <div className="product-detail-page">
       <div className="breadcrumb">
@@ -276,7 +280,7 @@ function ProductDetail() {
           <h1>{title}</h1>
 
           <div className="rating">
-            ⭐⭐⭐⭐⭐ <span>({evaluate.length} đánh giá)</span>
+            {average.toFixed(1)}⭐ <span>({evaluate.length} đánh giá)</span>
           </div>
 
           <div className="price">
