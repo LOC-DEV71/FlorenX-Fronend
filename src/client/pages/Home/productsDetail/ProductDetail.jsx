@@ -370,10 +370,15 @@ function ProductDetail() {
                 ))}
               </div>
 
-              <TinyEditor
+              {/* <TinyEditor
                 className="review-box__textarea"
                 value={comment}
                 onChange={(content) => setComment(content)}
+              /> */}
+              <textarea
+                className="review-box__textarea"
+                value={comment}
+                  onChange={(e) => setComment(e.target.value)}
               />
 
               <button
