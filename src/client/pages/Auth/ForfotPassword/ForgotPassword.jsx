@@ -1,20 +1,20 @@
 import './ForgotPassword.scss';
-import {forgotPassword} from "../../../../services/Client/AuthService/Auth.service";
+import { forgotPassword } from "../../../../services/Client/AuthService/Auth.service";
 import { useState } from 'react';
-import {  Link, useNavigate } from 'react-router-dom';
-import {toastError} from '../../../../utils/AlertFromSweetalert2';
+import { Link, useNavigate } from 'react-router-dom';
+import { toastError } from '../../../../utils/AlertFromSweetalert2';
 
-function ForgotPassword(){
+function ForgotPassword() {
     const navigate = useNavigate();
     const [form, setForm] = useState({
         email: ""
     })
     const handleSubmit = async (e) => {
-         e.preventDefault(); 
+        e.preventDefault();
         try {
-            const res = await forgotPassword({ email: form.email }); 
+            const res = await forgotPassword({ email: form.email });
 
-            if(res.ok){
+            if (res.ok) {
                 navigate(`/forgot-password/otp?email=${form.email}`);
             } else {
                 toastError(res.data)
@@ -34,23 +34,42 @@ function ForgotPassword(){
         <>
             <div className="forgot">
                 <div className="forgot_container">
-                    <div className='forgot_container-left'>
+
+                    {/* LEFT */}
+                    <div className="forgot_container-left">
+                        <Link to="/" className="back">← Trang chủ</Link>
+
+                        <div className="logo">
+                            <img src="/logo/florenx-dark.png" alt="logo" />
+                        </div>
+                    </div>
+
+                    {/* RIGHT */}
+                    <div className="forgot_container-right">
                         <form onSubmit={handleSubmit}>
-                            <div className='forgot_container-left-top'>
-                                <img src='/logo/florenx.png' title='logo'/>
-                                <h2 >Quên Mật Khẩu</h2>
+
+                            <div className="forgot_header">
+                                <h2>Quên mật khẩu</h2>
+                                <p>Lấy lại mật khẩu</p>
                             </div>
 
-                            <div className='forgot_container-left-bot'>
-                                <input type="email" name='email' placeholder="Nhập email" onChange={handleChange}/>
-                                <button type="submit">Click để nhận OTP</button>
+                            <div className="forgot_form">
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Nhập email"
+                                    onChange={handleChange}
+                                />
+
+                                <button type="submit" className="btn-dark">
+                                    Gửi mã xác nhận
+                                </button>
+                                <Link to="/login" className="back-login">← Quay lại đăng nhập</Link>
                             </div>
+
                         </form>
                     </div>
-                    <div className='forgot_container-right'>
-                        <img src="/img/nen-login.avif" alt="nền" />
-                        <Link to={"/login"} className='register-link'>Đăng nhập</Link>
-                    </div>
+
                 </div>
             </div>
         </>

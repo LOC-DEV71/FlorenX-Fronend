@@ -1,125 +1,114 @@
-.registerotp {
-    min-height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--bg);
-    color: var(--text-inmodal);
-
-    &_container{
-        width: 750px;
-        background: var(--bg-modal); 
-        border-radius: 10px;
-        box-shadow: 0 10px 30px var(--bg-modal);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-
-        &-left{
-            flex: 1;
-            display: flex;
-            justify-content: center;   
-            align-items: center; 
-            text-align: center;     
-            animation: slideFade 0.4s ease forwards;
-            @keyframes slideFade {
-                from {
-                    opacity: 0;
-                    transform: translateX(-200px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateX(0);
-                }
-            }
-
-            &-top{
-                max-width: 100%;
-                margin-top: -50px;
-                img{
-                    max-width: 100px;
-                    width: 100%;
-                }
-            }
-            &-bot{
-                input{
-                    width: 90%;
-                    height: 35px;
-                    margin-bottom: 10px;
-                    padding-left: 5px;
-                    border-radius: 8px;
-                    border: none;
-                    box-sizing: border-box;
-
-                    &:focus{
-                        border: 3px solid rgb(255, 52, 52);
-                        outline: none;            
-                    }
-                }
-                button{
-                    width: 92%;
-                    height: 35px;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    color: var(--btn-text);
-                    background: var(--btn);
-                    &:hover{
-                        background: var(--btn-hover);
-                        box-shadow: var(--btn-hover);
-                    }
-                }
-
-                a{
-                    color: var(--text);
-                }
-            }
-        }
-
-         &-right{
-            max-width: 350px;
-            max-height: 515px;
-                position: relative;   
-
-            img{
-                max-width: 350px;
-                max-height: 515px;
-                width: 100%;
-                 object-fit: cover;
-                display: block;
-            }
-            .register-link{
-            position: absolute;
-            top: 20px;       
-            right: 20px;
-            z-index: 2;       
-
-            background: var(--btn);
-            color: var(--btn-text);
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-
-            &:hover{
-                background: var(--btn-hover);
-            }
-
-            animation: slideFade 0.4s ease forwards;
-            @keyframes slideFade {
-                from {
-                    opacity: 0;
-                    transform: translateX(-200px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateX(0);
-                }
-            }
-
-         }
-        }
-    }
+body {
+  margin: 0;
 }
 
+.registerotp {
+  height: 100vh;
+  width: 100%;
+}
+
+.registerotp_container {
+  display: flex;
+  height: 100%;
+}
+
+/* RIGHT IMAGE */
+.registerotp_container-right {
+  width: 50%;
+  position: relative;
+  user-select: none;
+}
+
+.registerotp_container-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.register-link {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* LEFT FORM */
+.registerotp_container-left {
+  width: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.registerotp_container-left form {
+  width: 400px;
+  max-width: 90%;
+}
+
+.registerotp_header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.registerotp_header img {
+  width: 180px;
+  margin-bottom: 20px;
+}
+
+.registerotp_header h2 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.registerotp_form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.registerotp_form input {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+  font-size: 16px;
+  outline: none;
+}
+
+.registerotp_form input:focus {
+  border-color: #2b579a;
+}
+.btn-dark {
+  background: #2b579a;
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.back-login{
+    text-align: center;
+    text-decoration: none;
+    color: #2b579a;
+    font-size: 14px;
+}
+@media (max-width: 992px) {
+  .registerotp_container {
+    flex-direction: column;
+  }
+
+  .registerotp_container-left,
+  .registerotp_container-right {
+    width: 100%;
+  }
+
+  .registerotp_container-left {
+    height: 250px;
+  }
+
+  .registerotp_container-right {
+    padding: 40px;
+  }
+}
