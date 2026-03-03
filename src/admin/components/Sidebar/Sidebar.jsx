@@ -48,7 +48,7 @@ function Sidebar() {
         <>
             <div className="sidebar-admin">
                 <div className="sidebar-admin_logo">
-                    <img src="/logo/florenx-dark.webp" title="logo" />
+                    <img src="/logo/florenx-dark.png" title="logo" />
                 </div>
                 {loading ? <div className="sidebar-admin_menu">
                     {renderSkeletonRows()}

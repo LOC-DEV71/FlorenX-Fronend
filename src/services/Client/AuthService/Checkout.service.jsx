@@ -1,7 +1,6 @@
 // const API_URL = "http://localhost:3000/api/v1/client/order";
 const API_URL = `${import.meta.env.VITE_API_URL}/client/order`;
 
-
 export const order = async (data) => {
     const res = await fetch(`${API_URL}/checkout`, {
         method: "POST",

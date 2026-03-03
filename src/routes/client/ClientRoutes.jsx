@@ -4,7 +4,7 @@ import MainLayout from "../../client/layout/MainLayout";
 import Register from "../../client/pages/Auth/Register/Register";
 import Login from "../../client/pages/Auth/Login/Login";
 import MyAccount from "../../client/pages/Auth/User/MyAccount";
-import RegisterOtp from "../../client/pages/Auth/Register/RegisterOtp ";
+import RegisterOtp from "../../client/pages/Auth/Register/RegisterOtp";
 import ForgotPassword from "../../client/pages/Auth/ForfotPassword/ForgotPassword";
 import ForgotPasswordOtp from "../../client/pages/Auth/ForfotPassword/ForgotPasswordOtp";
 import PrivateRoutes from "./PrivateRoutes";
