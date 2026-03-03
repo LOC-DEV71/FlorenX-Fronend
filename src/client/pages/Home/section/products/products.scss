@@ -113,7 +113,6 @@
     overflow: visible;
   }
 
-  /* ===== ARROWS ===== */
   .slick-prev,
   .slick-next {
     width: 36px;
@@ -233,11 +232,119 @@
   color: #666;
 }
 
-@media (max-width: 768px) {
-  .products {
-    padding: 0 20px;
-  }
+.products_main-mobile {
+  display: none;
 }
+
+@media (max-width: 768px) {
+
+  .products {
+    padding: 0 16px;
+  }
+
+.products_top {
+    flex-wrap: wrap;
+
+    &-title {
+      span {
+        display: none; 
+      }
+    }
+
+    &-category {
+
+      li {
+        display: none;  
+      }
+
+      .products_top-all {
+        display: inline-block;
+        font-weight: 600;
+      }
+
+    }
+  }
+  .products_main {
+    display: none !important;
+  }
+
+  .products_main-mobile {
+    display: flex !important;
+    gap: 14px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 6px 0 14px 0;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+
+  .products_main-mobile::-webkit-scrollbar {
+    display: none;
+  }
+
+  .products_main-mobile > div {
+    flex: 0 0 190px;  
+  }
+
+  .products_main-item {
+    border-radius: 14px;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+
+  .products_badge {
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 8px;
+  }
+
+  .products_main-item-img {
+    aspect-ratio: 1/1;
+    background: #fafafa;
+  }
+
+  .products_main-item-img img {
+    padding: 10px;
+  }
+
+  .products_main-item-content {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .products_main-item-content-title h3 {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .products_main-item-content-price {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .price-old {
+    font-size: 12px;
+  }
+
+  .price-new {
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  .products_main-item-content-price-right span {
+    font-size: 11px;
+    padding: 3px 7px;
+  }
+
+  .products_main-item-content-evaluate {
+    font-size: 12px;
+    font-weight: 500;
+    color: #444;
+  }
+
+}
+
 
 @media (max-width: 480px) {
   .products_main-item-img img {
@@ -258,3 +365,5 @@
     font-size: 11px;
   }
 }
+
+

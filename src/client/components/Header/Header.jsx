@@ -28,7 +28,7 @@ function Header() {
 
           <div className="header_category" onClick={toggleNav}>
             <MenuOutlined />
-            <p>Danh Mục</p>
+            <p className="categories">Danh Mục</p>
           </div>
         </div>
 

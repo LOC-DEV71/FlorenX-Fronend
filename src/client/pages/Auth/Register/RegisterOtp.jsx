@@ -2,7 +2,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import "./RegisterOtp.scss";
 import { verifyRegisterOtp } from "../../../../services/Client/AuthService/Auth.service";
-
+import {LeftOutlined} from "@ant-design/icons"
 
 function RegisterOtp() {
     const [searchParams] = useSearchParams();
@@ -39,7 +39,11 @@ function RegisterOtp() {
 
                 {/* RIGHT - IMAGE */}
                 <div className="registerotp_container-right">
-                    <img src="/img/nen-login.avif" alt="nền" />
+                    <Link to="/" className="back"><LeftOutlined/> Về trang chủ</Link>
+
+                    <div className="logo">
+                        <img src="/logo/florenx-dark.png" alt="logo" />
+                    </div>
                 </div>
 
                 {/* LEFT - FORM */}

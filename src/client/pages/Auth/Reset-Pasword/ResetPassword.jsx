@@ -39,16 +39,19 @@ function ResetPassword() {
 
                     {/* LEFT */}
                     <div className="resetPassword_container-left">
-                        <Link to="/login" className="back">←<LeftOutlined/> Về trang chủ</Link>
-
-                        <div className="logo">
-                            <img src="/logo/florenx-dark.png" alt="logo" />
-                        </div>
+                        <Link to={"/"} className='back'><LeftOutlined /> Về trang chủ</Link>
+                        <Link className='logo'>
+                            <img src="/logo/florenx-dark.png" title="logo" alt="logo" />
+                        </Link>
                     </div>
 
                     {/* RIGHT */}
                     <div className="resetPassword_container-right">
                         <form onSubmit={handleSubmitResetPassword}>
+                            <Link to={"/"} className='back'><LeftOutlined /> Về trang chủ</Link>
+                            <Link className='logo'>
+                                <img src="/logo/florenx-dark.png" title="logo" alt="logo" />
+                            </Link>
                             <div className="resetPassword_header">
                                 <h2>Đổi mật khẩu</h2>
                             </div>

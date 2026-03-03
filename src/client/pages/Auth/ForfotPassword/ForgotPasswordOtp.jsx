@@ -3,6 +3,7 @@ import './ForgotPasswordOtp.scss'
 import { useState } from "react";
 import { forgotPasswordOtp } from "../../../../services/Client/AuthService/Auth.service";
 import { toastError } from '../../../../utils/AlertFromSweetalert2';
+import {LeftOutlined} from "@ant-design/icons";
 function forgotOtpPasswordOtp() {
     const [searchParams] = useSearchParams();
     const email = searchParams.get("email")
@@ -49,7 +50,10 @@ function forgotOtpPasswordOtp() {
                     {/* RIGHT */}
                     <div className="forgotOtp_container-right">
                         <form onSubmit={handleSubmit}>
-
+                            <Link to={"/"} className='back'><LeftOutlined /> Về trang chủ</Link>
+                            <Link className='logo'>
+                                <img src="/logo/florenx-dark.png" title="logo" alt="logo" />
+                            </Link>
                             <div className="forgotOtp_header">
                                 <h2>Xác nhận email</h2>
                             </div>

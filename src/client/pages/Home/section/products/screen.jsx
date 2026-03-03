@@ -108,7 +108,7 @@ function Screen() {
         {/* TOP */}
         <div className="products_top">
           <h3 className="products_top-title">
-            MÀN HÌNH NỔI BẬC | <TruckOutlined /> GIAO HÀNG TẬN NƠI |  TRẢ GÓP 0%
+            MÀN HÌNH NỔI BẬC <span>|</span> <TruckOutlined /> <span>GIAO HÀNG TẬN NƠI |  TRẢ GÓP 0%</span>
           </h3>
 
           <ul className="products_top-category">
@@ -176,6 +176,61 @@ function Screen() {
             ))
           }
         </Slider>
+        <div className="products_main-mobile">
+          {loading ? 
+            renderSkeletonRows(5) :
+            [...data]
+            .map((item) => (
+              <div key={item._id}>
+                <Link className="products_main-item" to={`/products/detail/${item.slug}`}>
+
+                  <span className="products_badge">Nổi bật</span>
+
+
+                  <div className="products_main-item-img">
+                    <img src={item.thumbnail} alt={item.title} />
+                  </div>
+
+                  <div className="products_main-item-content">
+                    <div className="products_main-item-content-title">
+                      <h3>{item.title}</h3>
+                    </div>
+
+                    <div className="products_main-item-content-price">
+                      <div className="products_main-item-content-price-left">
+                        <span className="price-old">
+                          {item.price.toLocaleString("vi-VN")}₫
+                        </span><br />
+                        <span className="price-new">
+                          {(item.price - (item.price * item.discountPercentage / 100)).toLocaleString("vi-VN")}₫
+                        </span>
+                      </div>
+
+                      <div className="products_main-item-content-price-right">
+                        <span>-{item.discountPercentage}%</span>
+                      </div>
+                    </div>
+
+                    <div className="products_main-item-content-evaluate">
+                      {(() => {
+                        const reviews = item.evaluate || [];
+
+                        if (reviews.length === 0) {
+                          return "0.0 ⭐  (0 đánh giá)";
+                        }
+
+                        const total = reviews.reduce((sum, r) => sum + r.rating, 0);
+                        const avg = (total / reviews.length).toFixed(1);
+
+                        return `${avg} ⭐  (${reviews.length} đánh giá)`;
+                      })()}
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            ))
+          }
+        </div>
       </div>
     </div>
   );

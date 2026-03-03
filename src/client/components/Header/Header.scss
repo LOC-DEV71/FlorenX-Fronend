@@ -138,6 +138,9 @@
 @media (max-width: 500px) {
   .header {
     padding: 6px 14px;
+    .categories{
+      display: none;
+    }
   }
 
   .header_logo {

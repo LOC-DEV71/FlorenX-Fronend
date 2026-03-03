@@ -3,6 +3,7 @@ import { forgotPassword } from "../../../../services/Client/AuthService/Auth.ser
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toastError } from '../../../../utils/AlertFromSweetalert2';
+import {LeftOutlined} from "@ant-design/icons";
 
 function ForgotPassword() {
     const navigate = useNavigate();
@@ -47,7 +48,10 @@ function ForgotPassword() {
                     {/* RIGHT */}
                     <div className="forgot_container-right">
                         <form onSubmit={handleSubmit}>
-
+                            <Link to={"/"} className='back'><LeftOutlined /> Về trang chủ</Link>
+                            <Link className='logo'>
+                                <img src="/logo/florenx-dark.png" title="logo" alt="logo" />
+                            </Link>
                             <div className="forgot_header">
                                 <h2>Quên mật khẩu</h2>
                                 <p>Lấy lại mật khẩu</p>

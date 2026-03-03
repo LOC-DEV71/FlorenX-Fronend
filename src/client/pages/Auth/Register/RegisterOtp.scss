@@ -1,46 +1,52 @@
-body {
-  margin: 0;
-}
-
 .registerotp {
   height: 100vh;
-  width: 100%;
 }
 
 .registerotp_container {
   display: flex;
   height: 100%;
+  background: white;
 }
 
-/* RIGHT IMAGE */
+/* LEFT */
 .registerotp_container-right {
   width: 50%;
+  background: #e9edf2;
   position: relative;
-  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.registerotp_container-right .back {
+  position: absolute;
+  top: 25px;
+  left: 30px;
+  text-decoration: none;
+  font-size: 14px;
+  color: #2b579a;
 }
 
 .registerotp_container-right img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 350px;
 }
 
-.register-link {
-  position: absolute;
-  top: 25px;
-  right: 30px;
-  text-decoration: none;
-  color: #fff;
-  font-weight: 500;
-}
-
-/* LEFT FORM */
+/* RIGHT */
 .registerotp_container-left {
   width: 50%;
   background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
+  user-select: none;
+
+  .logo {
+    display: none;
+  }
+
+  .back {
+    display: none;
+  }
 }
 
 .registerotp_container-left form {
@@ -49,18 +55,27 @@ body {
 }
 
 .registerotp_header {
-  text-align: center;
-  margin-bottom: 40px;
-}
+  text-align: left;
 
-.registerotp_header img {
-  width: 180px;
-  margin-bottom: 20px;
-}
+  img {
+    width: 80px;
+    margin-bottom: 20px;
+  }
 
-.registerotp_header h2 {
-  font-size: 30px;
-  margin-bottom: 10px;
+  h2 {
+    font-size: 34px;
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  strong {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 40px;
+  }
 }
 
 .registerotp_form {
@@ -73,13 +88,13 @@ body {
   border: none;
   border-bottom: 1px solid #ccc;
   padding: 10px 0;
-  font-size: 16px;
   outline: none;
 }
 
 .registerotp_form input:focus {
   border-color: #2b579a;
 }
+
 .btn-dark {
   background: #2b579a;
   color: #fff;
@@ -88,27 +103,32 @@ body {
   border-radius: 8px;
   cursor: pointer;
 }
-.back-login{
-    text-align: center;
-    text-decoration: none;
-    color: #2b579a;
-    font-size: 14px;
-}
+
 @media (max-width: 992px) {
   .registerotp_container {
     flex-direction: column;
   }
 
-  .registerotp_container-left,
   .registerotp_container-right {
-    width: 84%;
+    display: none;
   }
 
   .registerotp_container-left {
-    height: 250px;
-  }
-
-  .registerotp_container-right {
+    width: 84%;
     padding: 40px;
+
+    .logo {
+      display: block;
+      width: 80px;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .back {
+      display: block;
+      margin-bottom: 10px;
+    }
   }
 }
