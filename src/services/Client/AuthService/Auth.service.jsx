@@ -1,6 +1,16 @@
 // const API_URL = "http://localhost:3000/api/v1/users";
 const API_URL = `${import.meta.env.VITE_API_URL}/users`;
 
+export const googleLogin = async (data) => {
+    return await fetch(`${API_URL}/google`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify(data)
+    }).then(res => res.json());
+};
 
 export const getMe = async () => {
   const res = await fetch(`${API_URL}/me`, {

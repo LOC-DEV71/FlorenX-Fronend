@@ -3,6 +3,8 @@ import './Login.scss'
 import { useState } from 'react'
 import {login} from "../../../../services/Client/AuthService/Auth.service";
 import {toastError, toastSuccess} from '../../../../utils/AlertFromSweetalert2';
+import { GoogleLogin } from '@react-oauth/google';
+import { googleLogin } from "../../../../services/Client/AuthService/Auth.service";
 
 
 function Login(){
@@ -24,9 +26,10 @@ function Login(){
             const res = await login(form)
             if(res.ok){
                 toastSuccess(res.data)
-                setTimeout(()=>{
+                 setTimeout(()=>{
                     window.location.href = "/"
-                }, 1500)
+                 }, 500)
+               
             } else {
                 toastError(res.data)
             }
@@ -34,6 +37,25 @@ function Login(){
             console.error(error);
         }
     }
+    const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+        const res = await googleLogin({
+            token: credentialResponse.credential
+        });
+
+        if(res.ok){
+            toastSuccess("Đăng nhập Google thành công");
+            setTimeout(()=>{
+                window.location.href = "/";
+            }, 500)
+        } else {
+            toastError(res.data);
+        }
+
+    } catch (error) {
+        console.error(error);
+    }
+};
     return(
         <>
             <div className="login">
@@ -53,6 +75,14 @@ function Login(){
                                 <Link to={"/forgot-password"}>Quên mật khẩu?</Link>
                             </div>
                         </form>
+                        <button type="submit" className='btn-dark'>Đăng Nhập</button>
+
+                    <div style={{margin: "15px 0"}}>
+                        <GoogleLogin
+                            onSuccess={handleGoogleSuccess}
+                            onError={() => toastError("Google Login Failed")}
+                        />
+                    </div>
                     </div>
                     <div className='login_container-right'>
                         <img src="/img/nen-login.avif" alt="nền" />
