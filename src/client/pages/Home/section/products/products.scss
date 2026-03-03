@@ -287,6 +287,20 @@
   }
 
   .products_main-item {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .products_main-mobile {
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+  }
+
+  .products_main-item,
+  .products_main-item * {
+    user-select: none;
+  }
+
+  .products_main-item {
     border-radius: 14px;
     border: 1px solid #f0f0f0;
     box-shadow: 0 4px 12px rgba(0,0,0,0.06);
