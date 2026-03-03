@@ -17,6 +17,15 @@
   justify-content: center;
 }
 
+.register_container-right {
+    .logo{
+      display: none;
+    }
+    .back{
+      display: none;
+    }
+  }
+
 .register_container-left .back {
   position: absolute;
   top: 25px;
@@ -98,10 +107,21 @@
 
   .register_container-right {
     width: 84%;
+    .logo{
+      display: block;
+      width: 80px;
+      img{
+        width: 100%;
+      }
+    }
+    .back{
+      margin-bottom: 10px;
+      display: block;
+    }
   }
 
   .register_container-left {
-    height: 250px;
+    display: none;
   }
 
   .register_container-right {

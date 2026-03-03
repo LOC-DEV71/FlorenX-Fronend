@@ -58,6 +58,10 @@ function Register() {
                     {/* RIGHT */}
                     <div className="register_container-right">
                         <form onSubmit={handleSubmit}>
+                            <Link to={"/"} className='back'><LeftOutlined /> Về trang chủ</Link>
+                            <Link className='logo'>
+                                <img src="/logo/florenx-dark.png" title="logo" alt="logo" />
+                            </Link>
                             <div className="register_header">
                                 <h2>Đăng ký</h2>
                                 <p>Tạo tài khoản mới</p>
