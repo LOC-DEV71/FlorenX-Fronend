@@ -117,7 +117,7 @@ function LaptopGamming() {
         {/* TOP */}
         <div className="products_top">
           <h3 className="products_top-title">
-           LAPTOP NỔI BẬC <span>|</span> <TruckOutlined /> <span>GIAO HÀNG TẬN NƠI</span>
+           LAPTOP NỔI BẬT <span>|</span> <TruckOutlined /> <span>GIAO HÀNG TẬN NƠI</span>
           </h3>
 
           <ul className="products_top-category">
