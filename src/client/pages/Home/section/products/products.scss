@@ -3,35 +3,87 @@
   padding: 20px 0;
 
   .banner-laptop {
-  display: grid;
-  gap: 12px;
-  padding: 0 55px;
-  margin: 20px 0;
-  grid-template-columns: 2fr 1fr;
+    display: grid;
+    gap: 12px;
+    padding: 0 55px;
+    margin: 20px 0;
+    grid-template-columns: 2fr 1fr;
 
-  &_left {
-    min-height: 420px;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 12px;
+    &_left {
+      min-height: 420px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 12px;
+      }
+    }
+
+    &_right {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 12px;
+      min-height: 420px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 12px;
+      }
+    }
+
+
+    @media (max-width: 1024px) {
+      padding: 0 30px;
+      gap: 10px;
+      grid-template-columns: 1fr 1fr;
+
+      &_left,
+      &_right {
+        min-height: 320px;
+      }
+    }
+
+
+    @media (max-width: 768px) {
+      padding: 0 16px;
+      margin: 16px 0;
+      gap: 10px;
+
+      &_left {
+        display: none;
+      }
+
+      &_right {
+        grid-column: 1 / -1;          
+        min-height: unset;
+        grid-template-rows: auto auto;
+        gap: 10px;
+
+        img {
+          width: 100%;
+          height: auto;           
+          aspect-ratio: 16 / 9;     
+          object-fit: cover;
+          border-radius: 10px;
+        }
+      }
+    }
+    @media (max-width: 480px) {
+      padding: 0 12px;
+      gap: 8px;
+
+      &_right {
+        gap: 8px;
+
+        img {
+          aspect-ratio: 4 / 3;        
+          border-radius: 8px;
+        }
+      }
     }
   }
-
-  &_right {
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    gap: 12px;
-    min-height: 420px;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 12px;
-    }
-  }}
 }
 
 .products {
@@ -238,33 +290,6 @@
     overflow-x: hidden;
   }
 
-  
-  .banner-laptop {
-    padding: 0 16px;
-    margin: 16px 0;
-    gap: 10px;
-
-    &_left {
-      display: none;
-    }
-
-    &_right {
-      grid-column: 1 / -1;       
-      min-height: unset;        
-      grid-template-rows: auto auto; 
-      gap: 10px;
-
-      img {
-        width: 100%;
-        height: auto;            
-        aspect-ratio: 16 / 9;      
-        object-fit: cover;
-        border-radius: 10px;
-      }
-    }
-  }
-  
-
   .products {
     padding: 0 16px;
   }
@@ -373,7 +398,6 @@
 }
 
 @media (max-width: 480px) {
-  
   .products_main-mobile {
     .products_main-item-img img {
       padding: 6px;

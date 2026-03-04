@@ -23,7 +23,7 @@ function Footer() {
           <ul>
             <li><Link to="/">Trang chủ</Link></li>
             <li><Link to="/products">Sản phẩm</Link></li>
-            <li><Link to="/news">Tin tức</Link></li>
+            <li><Link to="/articles">Tin tức</Link></li>
             <li><Link to="/contact">Liên hệ</Link></li>
           </ul>
         </div>

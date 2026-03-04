@@ -52,18 +52,18 @@ function ArticlesDetail() {
 
       {/* HERO */}
       <div className="article-hero">
-  <img src="/img/banner11.png" alt="banner" className="hero-bg" />
+        <img src="/img/banner11.png" alt="banner" className="hero-bg" />
 
-  <div className="hero-overlay">
-    <div className="hero-inner">
-      <span className="hero-category">TIN TỨC</span>
-      <h1>{article.title}</h1>
-      <div className="hero-meta">
-        {new Date(article.createdAt).toLocaleDateString("vi-VN")}
+        <div className="hero-overlay">
+          <div className="hero-inner">
+            <span className="hero-category">TIN TỨC</span>
+            <h1>{article.title}</h1>
+            <div className="hero-meta">
+              {new Date(article.createdAt).toLocaleDateString("vi-VN")}
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
 
       {/* BODY */}
       <div className="article-container">

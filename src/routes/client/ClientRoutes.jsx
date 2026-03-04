@@ -16,6 +16,7 @@ import ProductDetail from "../../client/pages/Home/productsDetail/ProductDetail"
 import Checkout from "../../client/pages/Cart/checkout/checkout";
 import SearchPage from "../../client/components/search/searchPage";
 import ArticlesDetail from "../../client/pages/Home/section/status/new";
+import ArticlesAll from "../../client/pages/articles/ArticlesAll";
 
 function ClientRoutes() {
   return (
@@ -37,6 +38,7 @@ function ClientRoutes() {
         <Route path="/products/detail/:slug" element={<ProductDetail />} />
 
 
+        <Route path="/articles" element={<ArticlesAll/>}/>
         <Route path="/articles/detail/:slug" element={<ArticlesDetail/>}/>
 
         <Route element={<PrivateRoutes/>}>

@@ -35,7 +35,7 @@ function Header() {
         <div className="header_page">
           <Link className="home" to="/">TRANG CHỦ</Link>
           <Link className="showroom">SHOWROOM</Link>
-          <Link className="news">BÀI VIẾT</Link>
+          <Link className="news" to="/articles">BÀI VIẾT</Link>
           <Link className="suport">HỖ TRỢ</Link>
         </div>
 
@@ -50,7 +50,7 @@ function Header() {
       </div>
 
       <div className="header_bot">
-        <Link><FileSearchOutlined /> Tin tức công nghệ</Link>
+        <Link to={"/articles"}><FileSearchOutlined /> Tin tức công nghệ</Link>
         <Link><BarcodeOutlined /> Khuyến mãi</Link>
         <Link><FileSearchOutlined /> Bảo hành</Link>
         <Link><GiftOutlined /> PC tặng màn hình</Link>

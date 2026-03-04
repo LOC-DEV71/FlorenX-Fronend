@@ -10,7 +10,8 @@ function AdminCreateArticles() {
     description: "",
     content: "",
     featured: "yes",
-    articleCategory: "news"
+    articleCategory: "news",
+    position: ""
   });
   const [loading, setLoading] = useState(false);
   const [thumbnail, setThumbnail] = useState(null);
@@ -45,6 +46,8 @@ function AdminCreateArticles() {
       setLoading(false);
     }
   };
+
+  console.log(form)
 
   return (
     <>
@@ -87,6 +90,17 @@ function AdminCreateArticles() {
             }
             className="content"
           />
+
+          <div className="group">
+            <label htmlFor="position">Vị trí hiển thị</label>
+            <input 
+              type="number" 
+              id="position" 
+              name="position" 
+              value={form.position}
+              onChange={e => setForm({...form, position: e.target.value})}
+            />
+          </div>
 
           <div className="group">
             <label htmlFor="featured">Nổi bậc</label>

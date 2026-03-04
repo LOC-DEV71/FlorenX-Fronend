@@ -11,7 +11,8 @@ function AdminUpdateArticles() {
     description: "",
     content: "",
     featured: "",
-    articleCategory: ""
+    articleCategory: "",
+    position: ""
   });
   const [thumbnailPreview, setThumbnailPreview] = useState(null);
   const [thumbnailFile, setThumbnailFile] = useState(null);
@@ -29,6 +30,7 @@ function AdminUpdateArticles() {
             description: article.description || "",
             content: article.content || "",
             featured: article.featured ? "yes" : "no",
+            position: article.position
           });
           if (article.thumbnail) {
             setThumbnailPreview(article.thumbnail);
@@ -111,6 +113,17 @@ function AdminUpdateArticles() {
                 setForm({ ...form, content: e })
               }
             />
+
+            <div className="group">
+              <label htmlFor="position">Vị trí hiển thị</label>
+              <input 
+                type="number" 
+                id="position" 
+                name="position" 
+                value={form.position}
+                onChange={e => setForm({...form, position: e.target.value})}
+              />
+            </div>
 
             <div className="group">
               <label htmlFor="featured">Nổi bật</label>

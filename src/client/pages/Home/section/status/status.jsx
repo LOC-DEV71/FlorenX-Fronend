@@ -52,7 +52,7 @@ function Status() {
                 <section className="status-section">
                     <div className="status-header">
                         <h2>Tin tức công nghệ</h2>
-                        <Link>Xem tất cả</Link>
+                        <Link to={"/articles"}>Xem tất cả</Link>
                     </div>
 
                     <div className="status-news-grid">
