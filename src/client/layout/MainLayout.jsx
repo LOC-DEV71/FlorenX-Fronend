@@ -4,7 +4,7 @@ import Footer from "../components/Footer/Footer"
 import Hero from "../components/Hero/Hero"
 import ChatWidget from "./chat"
 import { SliderNavProvider } from "../../context/client/sliderNavContext"
-import Popup from "./Popup.JSX"
+import Popup from "./Popup.jsx"
 
 function MainLayout(){
     return(
