@@ -7,6 +7,8 @@ import { getCart } from "../../../../services/Client/AuthService/Cart.service";
 import { getVoucher } from "../../../../services/Client/AuthService/voucher.service";
 import { order } from "../../../../services/Client/AuthService/Checkout.service";
 import { toastError, toastSuccess } from "../../../../utils/AlertFromSweetalert2";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+
 
 function Checkout() {
   const [cart, setCart] = useState([]);
@@ -16,6 +18,7 @@ function Checkout() {
   const [selectedVoucher, setSelectedVoucher] = useState(null);
   const [loading, setLoading] = useState(true);
   const [ordering, setOrdering] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("cod");
 
   const [shipping, setShipping] = useState({
     fullName: "",
@@ -63,7 +66,7 @@ function Checkout() {
     (sum, item) =>
       sum +
       (item.price - (item.price * item.discountPercentage) / 100) *
-        item.quantity,
+      item.quantity,
     0
   );
 
@@ -114,7 +117,7 @@ function Checkout() {
         phone: shipping.phone,
         address: shipping.address,
         items: buildOrderItems(),
-        payment_method: "cod"
+        payment_method: paymentMethod
       };
 
       if (voucherId) {
@@ -154,9 +157,27 @@ function Checkout() {
 
           <div className="card">
             <h2>Phương thức thanh toán</h2>
+
             <label className="radio">
-              <input type="radio" defaultChecked />
+              <input
+                type="radio"
+                name="payment"
+                value="cod"
+                checked={paymentMethod === "cod"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
               <span>Thanh toán khi nhận hàng (COD)</span>
+            </label>
+
+            <label className="radio">
+              <input
+                type="radio"
+                name="payment"
+                value="paypal"
+                checked={paymentMethod === "paypal"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
+              <span>Thanh toán PayPal</span>
             </label>
           </div>
 
@@ -203,9 +224,49 @@ function Checkout() {
               <span>{finalPrice.toLocaleString("vi-VN")}₫</span>
             </div>
 
-            <button className="btn" onClick={handleOrder} disabled={ordering}>
-              Đặt hàng
-            </button>
+            {paymentMethod === "cod" && (
+              <button className="btn" onClick={handleOrder} disabled={ordering}>
+                Đặt hàng phương thức COD
+              </button>
+            )}
+            
+            {paymentMethod === "paypal" && (
+
+              <div style={{ marginTop: 20 }}>
+
+                <PayPalScriptProvider
+                  options={{
+                    "client-id": "AVLmCQeDTY4V61Oz3EDPhSaDLkIAMEy8ldzQHa7Q5BingPpqAntPqRoI40NY-8TKbxlJrkaZad9nNb1t",
+                    currency: "USD"
+                  }}
+                >
+
+                  <PayPalButtons
+                    style={{ layout: "vertical" }}
+                    createOrder={(data, actions) => {
+                      return actions.order.create({
+                        purchase_units: [
+                          {
+                            amount: {
+                              value: (finalPrice / 24000).toFixed(2)
+                            }
+                          }
+                        ]
+                      });
+                    }}
+                    onApprove={(data, actions) => {
+                      return actions.order.capture().then(async () => {
+                        await handleOrder();
+                      });
+                    }}
+                  />
+
+                </PayPalScriptProvider>
+
+              </div>
+
+            )}
+
           </div>
         </div>
       </div>

@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@ant-design/charts": "^2.6.7",
+    "@paypal/paypal-js": "^9.4.0",
+    "@paypal/react-paypal-js": "^9.0.1",
     "@react-oauth/google": "^0.13.4",
     "@tinymce/tinymce-react": "^6.3.0",
     "antd": "^6.1.4",
